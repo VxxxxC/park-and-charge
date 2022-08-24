@@ -27,6 +27,7 @@ import {
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import { TailwindProvider } from 'tailwindcss-react-native';
+import { MaterialIcon } from './components/Icon';
 
 
 const Section: React.FC<
@@ -95,6 +96,7 @@ const App = () => {
                             <Text style={styles.highlight}>
                                 Hello World !! This is my first syntax here !! 👋
                             </Text>
+                            <MaterialIcon size="large" name="home" color="black" />
                         </Section>
                         <LearnMoreLinks />
                     </View>
