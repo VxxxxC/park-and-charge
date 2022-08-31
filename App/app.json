@@ -1,4 +1,11 @@
 {
-  "name": "App",
-  "displayName": "App"
+  "expo": {
+    "name": "Project-0",
+    "slug": "Project-0",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "Project-0"
 }
