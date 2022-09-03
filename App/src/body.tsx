@@ -1,18 +1,22 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 import { Box, View, ScrollView, Center } from "native-base";
+import DataAPI from "./components/dataAPI";
 
 function Body() {
-  return (
-    <View
-      flexGrow="1"
-      bg="light.50"
-      alignItems="center"
-      justifyContent="center"
-    >
-      <Center>This is Body</Center>
-    </View>
-  );
+    return (
+        <SafeAreaView>
+            <Box
+                h="4/5"
+                flexGrow="1"
+                bg="light.50"
+                alignItems="center"
+                justifyContent="center">
+                <DataAPI />
+            </Box>
+        </SafeAreaView>
+
+    );
 }
 
 export default Body;
