@@ -1,23 +1,42 @@
-import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "native-base";
-import axios from "axios";
+import React, { useEffect, useMemo, useState } from "react";
+import { Center, FlatList, ScrollView, Text, View, VStack } from "native-base";
+import getAPI from "./API";
 
 function DataAPI() {
-    const [result, getResult] = useState([]);
+  const [data, getData] = useState([]);
 
-    useEffect(() => {
-        axios.get(
-            "https://api.data.gov.hk/v1/historical-archive/get-file?url=https%3A%2F%2Fwww.ofca.gov.hk%2Ffilemanager%2Fofca%2Fcommon%2Fdatagovhk%2FPayPhoneRegister.csv&amp;time=20220201-1322"
-        ).then((data: any) => getResult(data.data));
-    }, [])
-    //console.log(result)
+  async function apiControl() {
+    const getApi = useMemo(async () => {
+      const api: any = await getAPI();
+      //   console.log(api);
+      getData(api);
+    }, []);
+  }
+  //   console.log(data);
+  apiControl();
 
-    return (
-        <ScrollView>
-            <Text>
-                {result}
-            </Text>
-        </ScrollView>
-    );
+  return (
+    <VStack mt="5" p="5" w="300px" bg="cyan.500">
+      <FlatList
+        data={data}
+        renderItem={({ item }) => (
+          <>
+            <Center>{item["KIOSK_ID"]}</Center>
+            <Center>{item["DISTRICT"]}</Center>
+            <Center>{item["LOCALITY"]}</Center>
+            <View
+              style={{
+                margin: 5,
+                flex: 1,
+                height: 1,
+                backgroundColor: "black",
+              }}
+            />
+          </>
+        )}
+        keyExtractor={(item) => item["KIOSK_ID"]}
+      />
+    </VStack>
+  );
 }
 export default DataAPI;
