@@ -13,11 +13,13 @@ import {
   VStack,
   Box,
 } from "native-base";
-import NativeBaseIcon from "./components/NativeBaseIcon";
-import Body from "./src/body";
-import SpaceLine from "./src/components/spacer";
-import Footer from "./src/footer";
-import Head from "./src/head";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Home from "./src/home";
+
+const RootStack = createNativeStackNavigator();
+const Tabs = createBottomTabNavigator();
 
 // Define the config
 const config = {
@@ -34,13 +36,15 @@ declare module "native-base" {
 export default function App() {
   return (
     <NativeBaseProvider>
-      <Box flexGrow="1" justifyContent="center">
-        <Head />
-        <SpaceLine />
-        <Body />
-        <SpaceLine />
-        <Footer />
-      </Box>
+      <NavigationContainer>
+        <RootStack.Navigator>
+          <RootStack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+        </RootStack.Navigator>
+      </NavigationContainer>
     </NativeBaseProvider>
   );
 }
