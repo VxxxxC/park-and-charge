@@ -14,16 +14,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 function TeleBooth() {
   const [data, getData] = useState([]);
 
-  async function apiControl() {
-    const getApi = useMemo(async () => {
-      const api: any = await TeleBoothAPI();
-      //   console.log(api);
-      getData(api);
-    }, []);
-  }
+  useMemo(async () => {
+    const api: any = await TeleBoothAPI();
+    // console.log("this is imported teleBooth API data : ", api);
+    getData(api);
+  }, []);
+
   //   console.log(data);
-  apiControl();
-  console.log(data);
 
   return (
     <SafeAreaView>
