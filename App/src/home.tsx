@@ -13,7 +13,7 @@ const Tabs = createBottomTabNavigator();
 function Home() {
   return (
     <Tabs.Navigator
-      initialRouteName="TeleBooth"
+      initialRouteName="Carpark"
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: "#5eead4",

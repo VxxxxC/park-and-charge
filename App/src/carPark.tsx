@@ -33,7 +33,7 @@ function CarPark() {
 
   return (
     <SafeAreaView>
-      <VStack p="5" bg="dark.50">
+      <VStack bg="dark.50">
         <FlatList
           data={data}
           renderItem={({ item }: any) => (
@@ -55,12 +55,14 @@ function CarPark() {
               </HStack>
 
               {item["paymentMethods"] ? (
-                <HStack p="3">
+                <VStack p="3">
                   <Text color="dark.900" fontWeight="bold" fontSize="lg">
                     付款方式 :{" "}
                   </Text>
-                  <Text fontSize="lg">{[item["paymentMethods"]].join()}</Text>
-                </HStack>
+                  <Text color="dark.900" fontSize="4xl">
+                    {[item["paymentMethods"]].join()}
+                  </Text>
+                </VStack>
               ) : null}
 
               <HStack p="3">
@@ -69,14 +71,14 @@ function CarPark() {
                 </Text>
               </HStack>
 
-              <HStack p="3">
+              <VStack p="3">
                 <Text color="dark.900" fontWeight="bold" fontSize="lg">
                   地址 :{" "}
                 </Text>
                 <Text color="dark.900" fontSize="lg">
                   {item["district"]}, {item["displayAddress"]}
                 </Text>
-              </HStack>
+              </VStack>
 
               {item["renditionUrls"] ? (
                 <HStack p="3">
@@ -92,10 +94,8 @@ function CarPark() {
 
               <View
                 style={{
-                  margin: 5,
-                  flex: 1,
-                  height: 1,
-                  backgroundColor: "black",
+                  height: 2,
+                  backgroundColor: "white",
                 }}
               />
             </>
