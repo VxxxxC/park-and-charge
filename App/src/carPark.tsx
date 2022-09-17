@@ -59,17 +59,15 @@ function CarPark() {
                   <Text color="dark.900" fontWeight="bold" fontSize="lg">
                     付款方式 :{" "}
                   </Text>
-                  <Text color="dark.900" fontSize="4xl">
+                  <Text color="amber.400" fontSize="2xl" fontWeight="bold">
                     {[item["paymentMethods"]].join()}
                   </Text>
                 </VStack>
               ) : null}
 
-              <HStack p="3">
-                <Text>
-                  <CarParkVacancyAPI Id={item["park_Id"]} />
-                </Text>
-              </HStack>
+              <VStack p="3">
+                <CarParkVacancyAPI Id={item["park_Id"]} />
+              </VStack>
 
               <VStack p="3">
                 <Text color="dark.900" fontWeight="bold" fontSize="lg">

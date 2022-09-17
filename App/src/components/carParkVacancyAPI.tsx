@@ -1,5 +1,5 @@
 import axios from "axios";
-import { VStack, Text } from "native-base";
+import { HStack, VStack, Text } from "native-base";
 import Papa from "papaparse";
 import React, { useEffect, useMemo, useState } from "react";
 
@@ -35,25 +35,29 @@ function CarParkVacancyAPI({ Id }: any) {
   return (
     <>
       {vacancy > 0 && (
-        <VStack>
-          <Text color="dark.900" fontWeight="bold" fontSize="lg">
-            剩餘車位 :
-          </Text>
-          {vacancy < 30 ? (
-            <Text color="red.600" fontSize="9xl">
-              {vacancy}
+        <>
+          <HStack alignItems="center">
+            <Text color="dark.900" fontWeight="bold" fontSize="lg">
+              剩餘車位 :
             </Text>
-          ) : (
-            <Text color="green.600" fontSize="9xl">
-              {vacancy}
-            </Text>
-          )}
+            {vacancy < 30 ? (
+              <Text color="red.600" fontSize="5xl" fontWeight="bold">
+                {vacancy}
+              </Text>
+            ) : (
+              <Text color="green.600" fontSize="5xl" fontWeight="bold">
+                {vacancy}
+              </Text>
+            )}
+          </HStack>
 
-          <Text color="dark.900" fontSize="15px">
-            最後更新時間 :
-          </Text>
-          <Text color="dark.900">{updateTime}</Text>
-        </VStack>
+          <HStack alignItems="center">
+            <Text color="dark.900" fontSize="15px">
+              最後更新時間 :
+            </Text>
+            <Text color="dark.900">{updateTime}</Text>
+          </HStack>
+        </>
       )}
     </>
   );
