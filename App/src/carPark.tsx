@@ -16,17 +16,20 @@ import CarParkVacancyAPI from "./components/carParkVacancyAPI";
 
 function CarPark() {
   const [data, getData] = useState([]);
-  const [pause, setPause] = useState(false);
 
   useEffect(() => {
-    if (!pause) {
-      const api: any = CarParkInfoAPI();
-      api.then((res: any) => {
+    let mounted = true;
+    const api: any = CarParkInfoAPI();
+    api.then((res: any) => {
+      if (mounted) {
         // console.log("this is imported carPark Info API data : ", res);
         getData(res);
-        setPause(true);
-      });
-    }
+      }
+    });
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   //console.log(data);

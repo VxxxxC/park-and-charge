@@ -8,28 +8,32 @@ function CarParkVacancyAPI({ Id }: any) {
   //   console.log(carparkID);
   const [updateTime, setUpdateTime] = useState("");
   const [vacancy, setVacancy] = useState<number>(0);
-  const [pause, setPause] = useState(false);
 
-  useMemo(async () => {
-    if (!pause) {
-      const result = await axios(
-        `https://api.data.gov.hk/v1/carpark-info-vacancy?data=vacancy&carparkIds=${carparkID}&lang=zh_TW`
-      );
+  useEffect(() => {
+    let mounted = true;
 
-      const info = result.data.results[0];
-      const privateCarInfo = info.privateCar;
-      const privateCarVacancy = privateCarInfo[0];
-      //vacancyInfo = `更新時間 :  ${privateCarVacancy.lastupdate}
-      // 剩餘車位 :  ${privateCarVacancy.vacancy}
-      //`;
+    axios(
+      `https://api.data.gov.hk/v1/carpark-info-vacancy?data=vacancy&carparkIds=${carparkID}&lang=zh_TW`
+    ).then((result) => {
+      if (mounted) {
+        const info = result.data.results[0];
+        const privateCarInfo = info.privateCar;
+        const privateCarVacancy = privateCarInfo[0];
+        //vacancyInfo = `更新時間 :  ${privateCarVacancy.lastupdate}
+        // 剩餘車位 :  ${privateCarVacancy.vacancy}
+        //`;
 
-      // if (privateCarVacancy.vacancy == -1 || null) {
-      //   return;
-      // }
-      setVacancy(privateCarVacancy.vacancy);
-      setUpdateTime(privateCarVacancy.lastupdate);
-      setPause(true);
-    }
+        // if (privateCarVacancy.vacancy == -1 || null) {
+        //   return;
+        // }
+        setVacancy(privateCarVacancy.vacancy);
+        setUpdateTime(privateCarVacancy.lastupdate);
+      }
+    });
+
+    return () => {
+      mounted = false;
+    };
   }, [Id]);
 
   return (

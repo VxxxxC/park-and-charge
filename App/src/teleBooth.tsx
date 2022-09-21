@@ -15,9 +15,17 @@ function TeleBooth() {
   const [data, getData] = useState([]);
 
   useMemo(async () => {
+    let mounted = true;
+
     const api: any = await TeleBoothAPI();
     // console.log("this is imported teleBooth API data : ", api);
-    getData(api);
+    if (mounted) {
+      getData(api);
+    }
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   //   console.log(data);
