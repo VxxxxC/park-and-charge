@@ -8,6 +8,7 @@ function CarParkVacancyAPI({ Id }: any) {
   //   console.log(carparkID);
   const [updateTime, setUpdateTime] = useState("");
   const [vacancy, setVacancy] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     let mounted = true;
@@ -28,6 +29,7 @@ function CarParkVacancyAPI({ Id }: any) {
         // }
         setVacancy(privateCarVacancy.vacancy);
         setUpdateTime(privateCarVacancy.lastupdate);
+        setLoading(false);
       }
     });
 
@@ -38,30 +40,38 @@ function CarParkVacancyAPI({ Id }: any) {
 
   return (
     <>
-      {vacancy > 0 && (
-        <>
-          <HStack alignItems="center">
-            <Text color="dark.900" fontWeight="bold" fontSize="lg">
-              剩餘車位 :
-            </Text>
-            {vacancy < 30 ? (
-              <Text color="red.600" fontSize="5xl" fontWeight="bold">
-                {vacancy}
-              </Text>
-            ) : (
-              <Text color="green.600" fontSize="5xl" fontWeight="bold">
-                {vacancy}
-              </Text>
-            )}
-          </HStack>
+      {loading ? (
+        <Text color="dark.900" fontSize="15px">
+          Loading...
+        </Text>
+      ) : (
+        <Text>
+          {vacancy > 0 && (
+            <>
+              <HStack alignItems="center">
+                <Text color="dark.900" fontWeight="bold" fontSize="lg">
+                  剩餘車位 :
+                </Text>
+                {vacancy < 30 ? (
+                  <Text color="red.600" fontSize="5xl" fontWeight="bold">
+                    {vacancy}
+                  </Text>
+                ) : (
+                  <Text color="green.600" fontSize="5xl" fontWeight="bold">
+                    {vacancy}
+                  </Text>
+                )}
+              </HStack>
 
-          <HStack alignItems="center">
-            <Text color="dark.900" fontSize="15px">
-              最後更新時間 :
-            </Text>
-            <Text color="dark.900">{updateTime}</Text>
-          </HStack>
-        </>
+              <HStack alignItems="center">
+                <Text color="dark.900" fontSize="15px">
+                  最後更新時間 :
+                </Text>
+                <Text color="dark.900">{updateTime}</Text>
+              </HStack>
+            </>
+          )}
+        </Text>
       )}
     </>
   );
