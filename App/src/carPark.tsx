@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  Box,
   Center,
   FlatList,
   HStack,
@@ -11,99 +12,19 @@ import {
 import React, { useEffect, useMemo, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import CarParkDistrict from "./components/carParkDistrict";
 import CarParkInfoAPI from "./components/carParkInfoAPI";
 import CarParkVacancyAPI from "./components/carParkVacancyAPI";
+import Spacer from "./components/spacer";
 
 function CarPark() {
-  const [data, getData] = useState([]);
-
-  useEffect(() => {
-    let mounted = true;
-    const api: any = CarParkInfoAPI();
-    api.then((res: any) => {
-      if (mounted) {
-        // console.log("this is imported carPark Info API data : ", res);
-        getData(res);
-      }
-    });
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  //console.log(data);
-
   return (
     <SafeAreaView>
-      <VStack bg="dark.50">
-        <FlatList
-          data={data}
-          renderItem={({ item }: any) => (
-            <>
-              <HStack p="3">
-                <Text color="dark.900" fontWeight="bold" fontSize="xl">
-                  {item["name"]}
-                </Text>
-              </HStack>
-
-              {/* FIXME: for developer use only */}
-              <HStack p="3">
-                <Text color="dark.900" fontWeight="bold" fontSize="lg">
-                  停車場編號 :{" "}
-                </Text>
-                <Text color="dark.900" fontSize="lg">
-                  {item["park_Id"]}
-                </Text>
-              </HStack>
-
-              {item["paymentMethods"] ? (
-                <VStack p="3">
-                  <Text color="dark.900" fontWeight="bold" fontSize="lg">
-                    付款方式 :{" "}
-                  </Text>
-                  <Text color="amber.400" fontSize="2xl" fontWeight="bold">
-                    {[item["paymentMethods"]].join()}
-                  </Text>
-                </VStack>
-              ) : null}
-
-              <VStack p="3">
-                <CarParkVacancyAPI Id={item["park_Id"]} />
-              </VStack>
-
-              <VStack p="3">
-                <Text color="dark.900" fontWeight="bold" fontSize="lg">
-                  地址 :{" "}
-                </Text>
-                <Text color="dark.900" fontSize="lg">
-                  {item["district"]}, {item["displayAddress"]}
-                </Text>
-              </VStack>
-
-              {item["renditionUrls"] ? (
-                <HStack p="3">
-                  <Image
-                    source={{
-                      uri: `${item["renditionUrls"]["carpark_photo"]}`,
-                    }}
-                    size="2xl"
-                    alt="Text"
-                  />
-                </HStack>
-              ) : null}
-
-              <View
-                style={{
-                  height: 2,
-                  backgroundColor: "white",
-                }}
-              />
-            </>
-          )}
-          keyExtractor={(item) => item["park_Id"]}
-        />
-      </VStack>
+      <Box bg="dark.50">
+        <CarParkDistrict />
+        <Spacer />
+        <CarParkInfoAPI />
+      </Box>
     </SafeAreaView>
   );
 }

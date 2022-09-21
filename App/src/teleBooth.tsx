@@ -10,6 +10,7 @@ import {
 } from "native-base";
 import TeleBoothAPI from "./components/teleBoothAPI";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Spacer from "./components/spacer";
 
 function TeleBooth() {
   const [data, getData] = useState([]);
@@ -58,14 +59,7 @@ function TeleBooth() {
                   {item["DISTRICT"]} , {item["LOCALITY"]} , {item["STREET"]}
                 </Text>
               </HStack>
-              <View
-                style={{
-                  margin: 5,
-                  flex: 1,
-                  height: 1,
-                  backgroundColor: "black",
-                }}
-              />
+              <Spacer />
             </>
           )}
           keyExtractor={(item) => item["KIOSK_ID"]}

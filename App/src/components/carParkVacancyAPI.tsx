@@ -48,27 +48,29 @@ function CarParkVacancyAPI({ Id }: any) {
         <Text>
           {vacancy > 0 && (
             <>
-              <HStack alignItems="center">
-                <Text color="dark.900" fontWeight="bold" fontSize="lg">
-                  剩餘車位 :
-                </Text>
-                {vacancy < 30 ? (
-                  <Text color="red.600" fontSize="5xl" fontWeight="bold">
-                    {vacancy}
+              <VStack>
+                <HStack alignItems="center" space={5}>
+                  <Text color="dark.900" fontWeight="bold" fontSize="lg">
+                    剩餘車位 :
                   </Text>
-                ) : (
-                  <Text color="green.600" fontSize="5xl" fontWeight="bold">
-                    {vacancy}
-                  </Text>
-                )}
-              </HStack>
+                  {vacancy < 30 ? (
+                    <Text color="red.600" fontSize="5xl" fontWeight="bold">
+                      {vacancy}
+                    </Text>
+                  ) : (
+                    <Text color="green.600" fontSize="5xl" fontWeight="bold">
+                      {vacancy}
+                    </Text>
+                  )}
+                </HStack>
 
-              <HStack alignItems="center">
-                <Text color="dark.900" fontSize="15px">
-                  最後更新時間 :
-                </Text>
-                <Text color="dark.900">{updateTime}</Text>
-              </HStack>
+                <HStack alignItems="center" space={5}>
+                  <Text color="dark.900" fontSize="15px">
+                    最後更新時間 :
+                  </Text>
+                  <Text color="dark.900">{updateTime}</Text>
+                </HStack>
+              </VStack>
             </>
           )}
         </Text>
