@@ -1,13 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, Text } from "native-base";
+import { CheckIcon, Select, Text } from "native-base";
 import axios from "axios";
+import DropDownPicker from "react-native-dropdown-picker";
 
 function CarParkDistrict() {
+  type districtState = [
+    {
+      label: string;
+      value: string;
+    } | null
+  ];
+
+  const districtList = [];
+
   const [data, getData]: any = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [selected, setSelected] = useState();
-
-  const districtList: string[] = [];
+  const [selected, setSelected] = useState("");
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  // const [items, setItems] = useState<districtState>([districtList]);
 
   useEffect(() => {
     let mounted = true;
@@ -29,8 +40,16 @@ function CarParkDistrict() {
 
   for (let i in data.results) {
     // console.log(data.results[i].district);
-    if (!districtList.includes(data.results[i].district)) {
-      districtList.push(data.results[i].district);
+    if (
+      !Object.is(districtList, {
+        label: data.results[i].district,
+        value: data.results[i].district,
+      })
+    ) {
+      districtList.push({
+        label: data.results[i].district,
+        value: data.results[i].district,
+      });
     }
   }
 
@@ -40,11 +59,21 @@ function CarParkDistrict() {
   // });
 
   return (
-    <Text color="amber.500" fontSize="3xl">
-      {districtList.map((item: any) => (
-        <Text>{item}</Text>
-      ))}
-    </Text>
+    // <Text color="amber.500" fontSize="3xl">
+    //   {districtList.map((item: any) => (
+    //     <Text>{item}</Text>
+    //   ))}
+    // </Text>
+
+    <Text>hi</Text>
+    // <DropDownPicker
+    //   open={open}
+    //   value={value}
+    //   items={items}
+    //   setOpen={setOpen}
+    //   setValue={setValue}
+    //   setItems={setItems}
+    // />
   );
 }
 
