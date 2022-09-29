@@ -11,44 +11,44 @@ import { FontAwesome5 } from "@expo/vector-icons";
 const Tabs = createBottomTabNavigator();
 
 function Home() {
-  return (
-    <Tabs.Navigator
-      initialRouteName="Carpark"
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: "#5eead4",
-        tabBarActiveBackgroundColor: "white",
-      }}
-    >
-      <Tabs.Screen
-        name="Explore"
-        component={Main}
-        options={{
-          tabBarIcon: () => (
-            <MaterialIcons name="explore" size={24} color="orange" />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="TeleBooth"
-        component={TeleBooth}
-        options={{
-          tabBarIcon: () => (
-            <FontAwesome5 name="person-booth" size={24} color="orange" />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="Carpark"
-        component={CarPark}
-        options={{
-          tabBarIcon: () => (
-            <FontAwesome5 name="parking" size={24} color="orange" />
-          ),
-        }}
-      />
-    </Tabs.Navigator>
-  );
+    return (
+        <Tabs.Navigator
+            initialRouteName="Main"
+            screenOptions={{
+                headerShown: false,
+                tabBarActiveTintColor: "#5eead4",
+                tabBarActiveBackgroundColor: "white",
+            }}
+        >
+            <Tabs.Screen
+                name="Explore"
+                component={Main}
+                options={{
+                    tabBarIcon: () => (
+                        <MaterialIcons name="explore" size={24} color="orange" />
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name="TeleBooth"
+                component={TeleBooth}
+                options={{
+                    tabBarIcon: () => (
+                        <FontAwesome5 name="person-booth" size={24} color="orange" />
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name="Carpark"
+                component={CarPark}
+                options={{
+                    tabBarIcon: () => (
+                        <FontAwesome5 name="parking" size={24} color="orange" />
+                    ),
+                }}
+            />
+        </Tabs.Navigator>
+    );
 }
 
 export default Home;

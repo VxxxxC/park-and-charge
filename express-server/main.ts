@@ -1,25 +1,24 @@
 import express from 'express';
+import cors from 'cors';
+import axios from 'axios';
 
 const app = express();
 const PORT = 8050;
 
-let message1 = { 'first': 'GET response' }
-let message2 = { 'second': 'GET response' }
+app.use(express.json())
+app.use(cors());
+// const corsOptions = {
+//    origin : 'localhost:19000'
+// }
 
-app.get('/', (req, res, next) => {
-    console.log(message1)
-    next()
+app.post('/carParkInfo', async (req, res, next) => {
+    console.log({ 'POST': 'Frontend post request received!' })
+
+    const response = await axios.get('https://api.data.gov.hk/v1/carpark-info-vacancy?data=info&lang=zh_TW')
+    const data = response.data.results;
+    console.log(data)
+    res.json({ 'POST': 'response' })
 })
-    .get('/', (req, res, next) => {
-        console.log(message2)
-        res.json({ message1, message2 })
-
-    })
-    .post('/', (req, res, next) => {
-        console.log({ 'POST': 'response' })
-        res.json({ 'POST': 'response' })
-
-    })
 
 app.listen(PORT, () => {
     try {

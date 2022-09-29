@@ -1,13 +1,9 @@
 import axios from "axios";
 import {
-  Box,
-  Center,
-  FlatList,
-  HStack,
-  Image,
-  Text,
-  View,
-  VStack,
+    Box,
+    Button,
+    Icon,
+    Text,
 } from "native-base";
 import React, { useEffect, useMemo, useState } from "react";
 import { TouchableOpacity } from "react-native";
@@ -17,16 +13,31 @@ import CarParkInfoAPI from "./components/carParkInfoAPI";
 import CarParkVacancyAPI from "./components/carParkVacancyAPI";
 import Spacer from "./components/spacer";
 
+console.log(`${process.env.REACT_NATIVE_APP_EXPRESS_API}/carParkInfo`)
+
+function apiRequest() {
+    axios.post(`${process.env.REACT_NATIVE_APP_EXPRESS_API}/carParkInfo`)
+        .then((response) => {
+            console.log(response.data)
+        })
+        .catch((error) => {
+            console.error({ error })
+        })
+}
+
 function CarPark() {
-  return (
-    <SafeAreaView>
-      <Box bg="dark.50">
-        <CarParkDistrict />
-        <Spacer />
-        <CarParkInfoAPI />
-      </Box>
-    </SafeAreaView>
-  );
+    return (
+        <SafeAreaView>
+            <Button bg="amber.400" onPress={apiRequest}>
+                <Text color="darkBlue.500">Button</Text>
+            </Button>
+            <Box bg="dark.50">
+                <CarParkDistrict />
+                <Spacer />
+                <CarParkInfoAPI />
+            </Box>
+        </SafeAreaView>
+    );
 }
 
 export default CarPark;
