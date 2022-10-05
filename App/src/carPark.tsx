@@ -13,7 +13,7 @@ import CarParkInfoAPI from "./components/carParkInfoAPI";
 import CarParkVacancyAPI from "./components/carParkVacancyAPI";
 import Spacer from "./components/spacer";
 
-console.log(`${process.env.REACT_NATIVE_APP_EXPRESS_API}/carParkInfo`)
+//console.log(`${process.env.REACT_NATIVE_APP_EXPRESS_API}/carParkInfo`)
 
 function apiRequest() {
     axios.post(`${process.env.REACT_NATIVE_APP_EXPRESS_API}/carParkInfo`)
