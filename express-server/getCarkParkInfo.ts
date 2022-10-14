@@ -7,7 +7,6 @@ const carParkInfo = express.Router();
 carParkInfo.get('/', async (req, res, next) => {
     console.log({ 'GET': 'Frontend get request received!' })
 
-
     const dbName = "carPark";
     const collectionName = "carParkInfo";
 
@@ -25,9 +24,9 @@ carParkInfo.get('/', async (req, res, next) => {
     // console.log(result)
 
 
-    console.log("disconnecting mongoDB...")
+    // console.log("disconnecting mongoDB...")
     await mongoClient.close();
-    console.log("mongodb disconnected!")
+    // console.log("mongodb disconnected!")
     res.json({ res: result })
 })
 

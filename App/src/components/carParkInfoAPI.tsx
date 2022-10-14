@@ -20,22 +20,15 @@ function CarParkInfoAPI() {
 
   useEffect(() => {
     let mounted = true;
-    // const api: any = axios(
-    //     "https://api.data.gov.hk/v1/carpark-info-vacancy?data=info&lang=zh_TW"
-    // );
-    // api.then((res: any) => {
-    //     if (mounted) {
-    //         // console.log("this is imported carPark Info API data : ", res.data.results);
-    //         getData(res.data.results);
-    //         setLoading(false);
-    //     }
-    // });
     axios
       .get(`${process.env.REACT_NATIVE_APP_EXPRESS_API}/getCarParkInfo`)
       .then((response) => {
-        // console.log(response.data.res);
-        getData(response.data.res);
-        setLoading(false);
+        if (mounted) {
+          // console.log(response.data.res);
+          getData(response.data.res);
+          setLoading(false);
+        }
+        return;
       })
       .catch((error) => {
         console.error(error.response.headers);
@@ -48,7 +41,7 @@ function CarParkInfoAPI() {
     };
   }, []);
 
-  console.log(data);
+  //   console.log(data);
 
   return (
     <>

@@ -15,7 +15,7 @@ app.use(cors());
 // }
 
 app.use('/updateCarParkInfo', updateAPI);
-app.use('/getCarParkInfo', carParkInfo)
+app.use('/getCarParkInfo', carParkInfo);
 
 
 app.listen(PORT, () => {

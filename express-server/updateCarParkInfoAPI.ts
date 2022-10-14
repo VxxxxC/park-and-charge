@@ -75,7 +75,7 @@ setInterval(() => {
     updateDatabase()
 
     const time = new Date().toLocaleString()
-    console.log(`Lastest update time: ${time}`)
-}, (1000 * 60) * 5)
+    console.log(`Lastest database update time: ${time}`)
+}, (1000 * 60) * 15)
 
 export default updateAPI
