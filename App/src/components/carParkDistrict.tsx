@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Center, CheckIcon, Select, Text } from "native-base";
 import axios from "axios";
-import DropDownPicker from "react-native-dropdown-picker";
+import DropDownPicker from 'react-native-dropdown-picker';
 
 function CarParkDistrict() {
-  type districtState = string[];
+  type itemType = {
+      label: string,
+      value: string,
+  }
 
-  const districtList: districtState = [];
+    const districtList: string[] = [];
+
 
   const [data, getData] = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [selected, setSelected] = useState("");
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems]: any = useState([districtList]);
+  const [value, setValue] = useState([]);
+  const [items, setItems] = useState<itemType[]>([])
 
   useEffect(() => {
     let mounted = true;
@@ -39,28 +42,23 @@ function CarParkDistrict() {
     };
   }, []);
 
-  for (let i in data) {
-    // console.log(data[i].district);
-    // if (
-    //   !Object.is(districtList, {
-    //     label: data[i].district,
-    //     value: data[i].district,
-    //   })
-    // ) {
-    //   districtList.push({
-    //     label: data[i].district,
-    //     value: data[i].district,
-    //   });
-    // } else return;
-    if (!districtList.includes(data[i]["district"])) {
-      districtList.push(data[i]["district"]);
-    } 
-  }
+  useEffect(()=>{
+      for (let i in data) {
+          if (!districtList.includes(data[i]["district"])) {
+              districtList.push(data[i]["district"]);
+          }
+      }
+      //   console.log(districtList);
 
-  // console.log(districtList);
-  // data.map((res: any) => {
-  //   console.log(res.district);
-  // });
+      let listItem:itemType[] = districtList.map<itemType>((res: any) => ({
+          label : res,
+          value : res,
+      }));
+      setItems(listItem)
+  },[data])
+
+    console.log(items)
+
 
   return (
     // <Text color="amber.500" fontSize="3xl">
@@ -69,22 +67,29 @@ function CarParkDistrict() {
     //   ))}
     // </Text>
 
-    <>
-      <Center bg="amber.500">
-        <Text fontSize="2xl" color="dark.900">
-          This is area districtList
-        </Text>
-      </Center>
-    </>
+//    <>
+//      <Center bg="amber.500">
+//        <Text fontSize="2xl" color="dark.900">
+//          This is area districtList
+//        </Text>
+//      </Center>
+//    </>
 
-    //  <DropDownPicker
-    //   open={open}
-    //   value={value}
-    //   items={items}
-    //   setOpen={setOpen}
-    //   setValue={setValue}
-    //   setItems={setItems}
-    // />
+  <DropDownPicker
+      multiple={true}
+      min={0}
+      max={18}
+      placeholder={"選擇區域"}
+      placeholderStyle={{fontSize: 30}}
+      labelStyle={{}}
+      open={open}
+      value={value}
+      items={items}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setItems}
+  />
+
   );
 }
 
