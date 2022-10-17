@@ -15,8 +15,7 @@ carParkInfo.get('/', async (req, res, next) => {
     const collectionName = "carParkInfo";
 
     const uri : any = process.env.MONGODB_URI;
-
-    console.log({uri})
+//     console.log({uri})
     const mongoClient = new MongoClient(uri, { monitorCommands: true });
 
     const db = mongoClient.db(dbName);

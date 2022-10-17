@@ -15,7 +15,7 @@ function CarParkDistrict() {
   const [data, getData] = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState([]);
+  const [value, setValue] = useState(null);
   const [items, setItems] = useState<itemType[]>([])
 
   useEffect(() => {
@@ -44,8 +44,10 @@ function CarParkDistrict() {
 
   useEffect(()=>{
       for (let i in data) {
-          if (!districtList.includes(data[i]["district"])) {
-              districtList.push(data[i]["district"]);
+        if (!districtList.includes(data[i]["district"])) {
+            if(data[i]["district"] !== undefined){
+                districtList.push(data[i]["district"]);
+              }
           }
       }
       //   console.log(districtList);
@@ -75,10 +77,8 @@ function CarParkDistrict() {
 //      </Center>
 //    </>
 
+  <>
   <DropDownPicker
-      multiple={true}
-      min={0}
-      max={18}
       placeholder={"選擇區域"}
       placeholderStyle={{fontSize: 30}}
       labelStyle={{}}
@@ -89,6 +89,10 @@ function CarParkDistrict() {
       setValue={setValue}
       setItems={setItems}
   />
+  <Center>
+      <Text color="dark.900"> {value} </Text>
+  </Center>
+    </>
 
   );
 }
