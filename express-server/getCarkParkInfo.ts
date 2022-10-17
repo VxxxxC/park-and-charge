@@ -1,6 +1,10 @@
 import express from 'express';
 import axios from 'axios';
 import { MongoClient } from 'mongodb';
+import * as dotenv from 'dotenv';
+
+dotenv.config({debug:true});
+// console.log(process.env)
 
 const carParkInfo = express.Router();
 
@@ -10,7 +14,9 @@ carParkInfo.get('/', async (req, res, next) => {
     const dbName = "carPark";
     const collectionName = "carParkInfo";
 
-    const uri = "mongodb+srv://m001-student:m001-student@sandbox.cgiqc.mongodb.net/?retryWrites=true&w=majority";
+    const uri : any = process.env.MONGODB_URI;
+
+    console.log({uri})
     const mongoClient = new MongoClient(uri, { monitorCommands: true });
 
     const db = mongoClient.db(dbName);

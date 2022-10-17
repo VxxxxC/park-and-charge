@@ -1,6 +1,10 @@
 import express from 'express';
 import axios from 'axios';
 import { MongoClient } from 'mongodb';
+import * as dotenv from 'dotenv';
+
+dotenv.config({debug:true});
+// console.log(process.env)
 
 const updateAPI = express.Router();
 
@@ -13,7 +17,7 @@ async function updateDatabase() {
     const dbName = "carPark";
     const collectionName = "carParkInfo";
 
-    const uri = "mongodb+srv://m001-student:m001-student@sandbox.cgiqc.mongodb.net/?retryWrites=true&w=majority";
+    const uri : any = process.env.MONGODB_URI;
     const mongoClient = new MongoClient(uri, { monitorCommands: true });
 
     const db = mongoClient.db(dbName);
@@ -71,8 +75,8 @@ async function updateDatabase() {
     }
 }
 
-setInterval(() => {
-    updateDatabase()
+setInterval(async() => {
+    await updateDatabase()
 
     const time = new Date().toLocaleString()
     console.log(`Lastest database update time: ${time}`)
