@@ -13,46 +13,92 @@ import {
   View,
   VStack,
 } from "native-base";
+import { useAppSelector } from './redux/hooks'
 
-function CarParkInfoAPI() {
-  const [data, getData] = useState([]);
+function CarParkInfoAPI({ carParkDistrict }: any) {
+
+  const [data, getData]: any = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [loadDistrict, setLoadDistrict] = useState<boolean>(false);
+  const [districtData, setDistrictData]: any = useState([]);
+
+  const district: string = carParkDistrict;
+  const selector = useAppSelector(state => state.district)
+
+  /* useEffect(() => {
+     let mounted = true;
+     axios
+       .get(`${process.env.REACT_NATIVE_APP_EXPRESS_API}/getCarParkInfo`)
+       .then((response) => {
+         if (mounted) {
+           //console.log(response.data.res);
+           getData(response.data.res);
+           setLoading(false);
+         }
+         return;
+       })
+       .catch((error) => {
+         console.error(error.response.headers);
+         console.error(error.response.status);
+         console.error(error.response.data);
+       });
+ 
+     return () => {
+       mounted = false;
+     };
+   }, []); */
+  // console.log(data);
+
+  /* useEffect(() => {
+   
+     if (!loadDistrict) {
+       data.map(async (item: any) => {
+         if (item["district"] == district) {
+           setDistrictData([...districtData, item])
+         }
+       })
+       setLoadDistrict(true)
+     }
+ 
+ 
+     if (loadDistrict) {
+       setLoadDistrict(false);
+       data.map(async (item: any) => {
+         if (item["district"] == district) {
+           setDistrictData([...districtData, item])
+         }
+       })
+       setLoadDistrict(true)
+     }
+ 
+ 
+     return () => {
+       district = '';
+       setDistrictData([]);
+     }
+   }, [carParkDistrict]) */
 
   useEffect(() => {
-    let mounted = true;
-    axios
-      .get(`${process.env.REACT_NATIVE_APP_EXPRESS_API}/getCarParkInfo`)
-      .then((response) => {
-        if (mounted) {
-          // console.log(response.data.res);
-          getData(response.data.res);
-          setLoading(false);
-        }
-        return;
-      })
-      .catch((error) => {
-        console.error(error.response.headers);
-        console.error(error.response.status);
-        console.error(error.response.data);
-      });
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  //   console.log(data);
+    //console.log('this is selector on carParkInfoAPI : ', selector)
+    let districtData: any = [''];
+    if (selector?.districtData) {
+      districtData.push(selector?.districtData)
+    }
+  }, [district])
 
   return (
     <>
-      {loading ? (
+      <Text style={{ color: 'white' }}>carParkInfoAPI : {selector?.loading}</Text>)
+      (
+
+      {!districtData ? (
         <Text color="dark.900" fontSize="15px">
           Loading...
         </Text>
       ) : (
         <VStack>
           <FlatList
-            data={data}
+            data={districtData}
             renderItem={({ item }: any) => (
               <>
                 <HStack p="3">
@@ -61,7 +107,7 @@ function CarParkInfoAPI() {
                   </Text>
                 </HStack>
 
-                {/* FIXME: for developer use only */}
+                FIXME: for developer use only
                 <HStack p="3">
                   <Text color="dark.900" fontWeight="bold" fontSize="lg">
                     停車場編號 :{" "}
@@ -109,12 +155,13 @@ function CarParkInfoAPI() {
                 <Spacer />
               </>
             )}
-            keyExtractor={(item) => item["park_Id"]}
+            keyExtractor={(item: any) => item["park_Id"]}
           />
         </VStack>
       )}
     </>
-  );
+  )
+
 }
 
 export default CarParkInfoAPI;
