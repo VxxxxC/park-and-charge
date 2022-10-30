@@ -9,6 +9,7 @@ import {
   FlatList,
   HStack,
   Image,
+  ScrollView,
   Text,
   View,
   VStack,
@@ -79,35 +80,48 @@ function CarParkInfoAPI({ carParkDistrict }: any) {
    }, [carParkDistrict]) */
 
   useEffect(() => {
-    //console.log('this is selector on carParkInfoAPI : ', selector)
-    let districtData: any = [''];
-    if (selector?.districtData) {
-      districtData.push(selector?.districtData)
-    }
-  }, [district])
+    //console.log('this is selector on carParkInfoAPI : ', selector.districtData[0].displayAddress)
+  }, [selector])
 
   return (
     <>
-      <Text style={{ color: 'white' }}>carParkInfoAPI : {selector?.loading}</Text>)
-      (
+      <Text>{selector.loading == 'is pending' ?  <Text color="red.500">Status : {selector?.loading}</Text> : <Text color="green.500">Status : {selector?.loading}</Text> }</Text>
+      <ScrollView>
+      {selector.districtData.map((item:any)=>(
+        <>
+        <VStack key={item.park_Id}>
+            <Text color= 'dark.900'> {item.name} </Text>
+            <HStack>
+              <Text color='dark.900'>地址：</Text>
+              <Text color='dark.900'>{item.displayAddress}</Text>
+              </HStack>
+              <Image source={{ uri: `${item?.renditionUrls?.carpark_photo}`, }} size="2xl" alt="Text" />
 
-      {!districtData ? (
-        <Text color="dark.900" fontSize="15px">
-          Loading...
-        </Text>
-      ) : (
+            <HStack>
+              <Text color='dark.900'>付款方式：</Text>
+              <Text color='amber.400'>{[item?.paymentMethods].join()}</Text>
+              </HStack>
+
+            <HStack>
+              <CarParkVacancyAPI Id={item.park_Id}/>
+              </HStack>
+        </VStack>
+          <Spacer/>
+          </>
+      ))}
+      </ScrollView>
+
+      {/*
         <VStack>
-          <FlatList
-            data={districtData}
-            renderItem={({ item }: any) => (
+            {selector.districtData.map((item:any) => (
+
               <>
-                <HStack p="3">
+                  <HStack p="3">
                   <Text color="dark.900" fontWeight="bold" fontSize="xl">
                     {item["name"]}
                   </Text>
                 </HStack>
-
-                FIXME: for developer use only
+ 
                 <HStack p="3">
                   <Text color="dark.900" fontWeight="bold" fontSize="lg">
                     停車場編號 :{" "}
@@ -115,7 +129,7 @@ function CarParkInfoAPI({ carParkDistrict }: any) {
                   <Text color="dark.900" fontSize="lg">
                     {item["park_Id"]}
                   </Text>
-                </HStack>
+                </HStack> 
 
                 {item["paymentMethods"] ? (
                   <VStack p="3">
@@ -137,7 +151,7 @@ function CarParkInfoAPI({ carParkDistrict }: any) {
                     地址 :{" "}
                   </Text>
                   <Text color="dark.900" fontSize="lg">
-                    {item["district"]}, {item["displayAddress"]}
+                    {item["displayAddress"]}
                   </Text>
                 </VStack>
 
@@ -152,16 +166,13 @@ function CarParkInfoAPI({ carParkDistrict }: any) {
                     />
                   </HStack>
                 ) : null}
-                <Spacer />
+                <Spacer /> 
               </>
-            )}
-            keyExtractor={(item: any) => item["park_Id"]}
-          />
+            ))}
         </VStack>
-      )}
-    </>
+        */}
+    </> 
   )
-
 }
 
 export default CarParkInfoAPI;

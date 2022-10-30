@@ -6,6 +6,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import CarParkInfoAPI from "./carParkInfoAPI";
 import { useAppDispatch } from './redux/hooks'
 import { fetchDistrict } from "./redux/reducer";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 function CarParkDistrict() {
   type itemType = {
@@ -105,9 +106,6 @@ function CarParkDistrict() {
         setValue={setValue}
         setItems={setItems}
       />
-      <Center>
-        <Text color="dark.900">carParkDistrict: {value} </Text>
-      </Center>
       <Spacer />
       <CarParkInfoAPI carParkDistrict={value} />
     </>
