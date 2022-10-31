@@ -17,13 +17,16 @@ app.use(cors());
 app.use('/updateCarParkInfo', updateAPI);
 app.use('/getCarParkInfo', carParkInfo);
 
+app.get('/', (req, res) => {
+  res.json('This is Park and Charge API by AWS EC2')
+})
 
 app.listen(PORT, () => {
-    console.log(runningAt(PORT))
-    try {
-        console.log(`server is started , PORT listening to ${PORT}`);
-    }
-    catch (err) {
-        console.log(`server fail to start !! ERROR catch : ${err}`)
-    }
+  console.log(runningAt(PORT))
+  try {
+    console.log(`server is started , PORT listening to ${PORT}`);
+  }
+  catch (err) {
+    console.log(`server fail to start !! ERROR catch : ${err}`)
+  }
 })
