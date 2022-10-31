@@ -8,7 +8,6 @@ function CarParkVacancyAPI({ Id }: any) {
   //   console.log(carparkID);
   const [updateTime, setUpdateTime] = useState("");
   const [vacancy, setVacancy] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     let mounted = true;
@@ -40,11 +39,7 @@ function CarParkVacancyAPI({ Id }: any) {
 
   return (
     <>
-      {loading ? (
-        <Text color="dark.900" fontSize="15px">
-          Loading...
-        </Text>
-      ) : (
+      {vacancy ? (
         <Text>
           {vacancy > 0 && (
             <>
@@ -74,7 +69,19 @@ function CarParkVacancyAPI({ Id }: any) {
             </>
           )}
         </Text>
-      )}
+      ) : !vacancy ? (
+        <VStack>
+          <HStack alignItems="center" space={5}>
+            <Text color="dark.900" fontWeight="bold" fontSize="lg">
+              剩餘車位 :
+            </Text>
+
+            <Text color="red.400" fontWeight="bold" fontSize="md">
+              資料沒有提供
+            </Text>
+          </HStack>
+        </VStack>
+      ): null}
     </>
   );
 }

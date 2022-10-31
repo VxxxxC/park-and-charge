@@ -85,30 +85,46 @@ function CarParkInfoAPI({ carParkDistrict }: any) {
 
   return (
     <>
-      <Text>{selector.loading == 'is pending' ?  <Text color="red.500">Status : {selector?.loading}</Text> : <Text color="green.500">Status : {selector?.loading}</Text> }</Text>
+      <Text bg='cyan.900'>{selector.loading == 'is pending' ? <Text color="red.500">Status : {selector?.loading}</Text> : <Text color="green.500">Status : {selector?.loading}</Text>}</Text>
       <ScrollView>
-      {selector.districtData.map((item:any)=>(
-        <>
-        <VStack key={item.park_Id}>
-            <Text color= 'dark.900'> {item.name} </Text>
-            <HStack>
-              <Text color='dark.900'>地址：</Text>
-              <Text color='dark.900'>{item.displayAddress}</Text>
+        {selector.districtData.map((item: any) => (
+          <>
+            <VStack key={item.park_Id}>
+              <Text color='dark.900' fontSize='2xl' fontWeight='bold'> {item.name} </Text>
+              <HStack>
+                <Text color='dark.900' fontWeight='bold' fontSize='md'>地址：</Text>
+                <Text color='dark.900' fontWeight='bold' fontSize='md'>{item.displayAddress}</Text>
               </HStack>
-              <Image source={{ uri: `${item?.renditionUrls?.carpark_photo}`, }} size="2xl" alt="Text" />
+              {item?.renditionUrls?.carpark_photo ?
+                <>
+                  <Text color='dark.900' fontWeight='bold' fontSize='md'>位置圖片：</Text>
+                  <Image source={{ uri: `${item?.renditionUrls?.carpark_photo}`, }} size="2xl" alt="Text" />
+                </> :
+                <>
+                  <Text color='dark.900' fontWeight='bold' fontSize='sm'>位置圖片：</Text>
+                  <Text color='red.400' fontWeight='bold' fontSize='sm'>資料沒有提供</Text>
+                </>
+              }
 
-            <HStack>
-              <Text color='dark.900'>付款方式：</Text>
-              <Text color='amber.400'>{[item?.paymentMethods].join()}</Text>
-              </HStack>
+              {item?.paymentMethods ?
+                <HStack>
+                  <Text color='dark.900' fontSize='xl' fontWeight='bold'>付款方式：</Text>
+                  <Text color='amber.400' fontSize='xl' fontWeight='bold'>{[item?.paymentMethods].join()}</Text>
+                </HStack>
+                :
+                <HStack>
+                  <Text color='dark.900' fontSize='sm' fontWeight='bold'>付款方式：</Text>
+                  <Text color='red.400' fontSize='sm' fontWeight='bold'>資料沒有提供</Text>
+                </HStack>
+              }
 
-            <HStack>
-              <CarParkVacancyAPI Id={item.park_Id}/>
+              <HStack>
+                <CarParkVacancyAPI Id={item.park_Id} />
               </HStack>
-        </VStack>
-          <Spacer/>
+            </VStack>
+            <Spacer />
           </>
-      ))}
+        ))}
       </ScrollView>
 
       {/*
@@ -171,7 +187,7 @@ function CarParkInfoAPI({ carParkDistrict }: any) {
             ))}
         </VStack>
         */}
-    </> 
+    </>
   )
 }
 
