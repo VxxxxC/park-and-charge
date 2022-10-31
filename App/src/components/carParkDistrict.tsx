@@ -20,7 +20,6 @@ function CarParkDistrict() {
 
 
   const [data, getData] = useState([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const [items, setItems] = useState<itemType[]>([])
@@ -34,7 +33,6 @@ function CarParkDistrict() {
         if (mounted) {
           // console.log(response.data.res);
           getData(response.data.res);
-          setLoading(false);
         }
         return;
       })
@@ -75,20 +73,6 @@ function CarParkDistrict() {
   }, [value])
 
   return (
-    // <Text color="amber.500" fontSize="3xl">
-    //   {districtList.map((item: any) => (
-    //     <Text>{item}</Text>
-    //   ))}
-    // </Text>
-
-    //    <>
-    //      <Center bg="amber.500">
-    //        <Text fontSize="2xl" color="dark.900">
-    //          This is area districtList
-    //        </Text>
-    //      </Center>
-    //    </>
-
     <>
       <DropDownPicker
         placeholder={"選擇區域"}

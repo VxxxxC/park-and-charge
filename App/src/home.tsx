@@ -20,6 +20,15 @@ function Home() {
       }}
     >
       <Tabs.Screen
+        name="CarPark"
+        component={CarPark}
+        options={{
+          tabBarIcon: () => (
+            <FontAwesome5 name="parking" size={24} color="orange" />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="CarCharge"
         component={CarCharge}
         options={{
@@ -34,15 +43,6 @@ function Home() {
         options={{
           tabBarIcon: () => (
             <FontAwesome5 name="person-booth" size={24} color="orange" />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="CarPark"
-        component={CarPark}
-        options={{
-          tabBarIcon: () => (
-            <FontAwesome5 name="parking" size={24} color="orange" />
           ),
         }}
       />

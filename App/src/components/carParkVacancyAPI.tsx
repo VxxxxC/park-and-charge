@@ -1,7 +1,6 @@
 import axios from "axios";
 import { HStack, VStack, Text } from "native-base";
-import Papa from "papaparse";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function CarParkVacancyAPI({ Id }: any) {
   let carparkID = Id;
@@ -19,16 +18,9 @@ function CarParkVacancyAPI({ Id }: any) {
         const info = result.data.results[0];
         const privateCarInfo = info.privateCar;
         const privateCarVacancy = privateCarInfo[0];
-        //vacancyInfo = `更新時間 :  ${privateCarVacancy.lastupdate}
-        // 剩餘車位 :  ${privateCarVacancy.vacancy}
-        //`;
 
-        // if (privateCarVacancy.vacancy == -1 || null) {
-        //   return;
-        // }
         setVacancy(privateCarVacancy.vacancy);
         setUpdateTime(privateCarVacancy.lastupdate);
-        setLoading(false);
       }
     });
 
@@ -81,7 +73,7 @@ function CarParkVacancyAPI({ Id }: any) {
             </Text>
           </HStack>
         </VStack>
-      ): null}
+      ) : null}
     </>
   );
 }
