@@ -23,7 +23,7 @@ function CarParkInfoAPI() {
 
   return (
     <>
-      <Text bg='cyan.900'>{selector.loading == 'is pending' ? <Text color="red.500">Status : {selector?.loading}</Text> : <Text color="green.500">Status : {selector?.loading}</Text>}</Text>
+      <Text bg='cyan.900'>{selector.loading == 'is rejected' ? <Text color="red.500">Status : {selector.loading}</Text> : selector.loading == 'is pending' ? <Text color="amber.500">Status : {selector.loading}</Text> : <Text color="green.500">Status : {selector.loading}</Text>}</Text>
       <ScrollView>
         {selector.districtData.map((item: any) => (
           <>
