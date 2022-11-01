@@ -12,10 +12,9 @@ import {
 } from "native-base";
 import { useAppSelector } from './redux/hooks'
 
-function CarParkInfoAPI({ carParkDistrict }: any) {
+function CarParkInfoAPI() {
 
 
-  const district: string = carParkDistrict;
   const selector = useAppSelector(state => state.district)
 
   /*  useEffect(() => {

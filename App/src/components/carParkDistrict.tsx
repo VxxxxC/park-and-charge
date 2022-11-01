@@ -18,6 +18,7 @@ function CarParkDistrict() {
 
   const districtList: string[] = [];
 
+  const infoAPI = `${process.env.REACT_NATIVE_APP_EXPRESS_API}/getCarParkInfo`
 
   const [data, getData] = useState([]);
   const [open, setOpen] = useState(false);
@@ -26,9 +27,10 @@ function CarParkDistrict() {
 
   useEffect(() => {
     let mounted = true;
+    //console.log(infoAPI)
 
     axios
-      .post(`${process.env.REACT_NATIVE_APP_EXPRESS_API}/getCarParkInfo`)
+      .post(infoAPI)
       .then((response) => {
         if (mounted) {
           // console.log(response.data.res);
@@ -91,7 +93,7 @@ function CarParkDistrict() {
         setItems={setItems}
       />
       <Spacer />
-      <CarParkInfoAPI carParkDistrict={value} />
+      <CarParkInfoAPI/>
     </>
 
   );
