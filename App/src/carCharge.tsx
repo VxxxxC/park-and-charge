@@ -1,15 +1,60 @@
-import React from "react";
-import { Flex, Text, VStack } from "native-base";
+import React, { useMemo, useState } from "react";
+import { StyleSheet } from "react-native";
+import { Flex, Text, ScrollView, VStack } from "native-base";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { FontAwesome } from '@expo/vector-icons';
+import {
+  Table,
+  TableWrapper,
+  Row,
+  Rows,
+  Col,
+  Cols,
+  Cell,
+} from "react-native-table-component";
+import CarParkChargeAPI from "./components/carParkChargeAPI";
 
 function CarCharge() {
+  const [data, getData] = useState([]);
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      padding: 16,
+      paddingTop: 30,
+      backgroundColor: "#fff",
+    },
+    head: { height: 140, backgroundColor: "#f1f8ff" },
+    text: { fontSize: 8, margin: 6 },
+  });
+
+  useMemo(async () => {
+    let mounted = true;
+
+    const api: any = await CarParkChargeAPI();
+    if (mounted) {
+      getData(api);
+    }
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  let title = data.map((title: string) => Object.keys(title));
+  let content = data.map((content: string) => Object.values(content));
+
   return (
     <SafeAreaView>
-      <VStack bg="dark.50" width='100%' height='100%'>
-        <Flex mt='50%' mx='20%' justify='center' align='center' height='20%' borderWidth='1' borderColor='dark.900' borderRadius='3xl'>
-        <Text color='dark.900' fontSize="20px">Coming Soon...<FontAwesome name="gears" size={30} color="white" /></Text>
-        </Flex>
+      <VStack width="95%" height="100%">
+        <ScrollView style={styles.container}>
+          <Text style={{ borderWidth: 1, borderColor: "#c8e1ff" }}>
+            來源：香港電燈
+          </Text>
+          <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
+            <Row data={title[0]} style={styles.head} textStyle={styles.text} />
+            <Rows data={content} textStyle={styles.text} />
+          </Table>
+        </ScrollView>
       </VStack>
     </SafeAreaView>
   );
