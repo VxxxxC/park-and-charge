@@ -7,9 +7,6 @@ import {
   TableWrapper,
   Row,
   Rows,
-  Col,
-  Cols,
-  Cell,
 } from "react-native-table-component";
 import CarParkChargeAPI from "./components/carParkChargeAPI";
 

@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import CarParkVacancyAPI from "./carParkVacancyAPI";
 import Spacer from "./spacer";
 import {

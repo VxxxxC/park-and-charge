@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Center, CheckIcon, Select, Text } from "native-base";
 import Spacer from "./spacer"
 import axios from "axios";
 import DropDownPicker from 'react-native-dropdown-picker';
 import CarParkInfoAPI from "./carParkInfoAPI";
 import { useAppDispatch } from './redux/hooks'
 import { fetchDistrict } from "./redux/reducer";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 function CarParkDistrict() {
   type itemType = {

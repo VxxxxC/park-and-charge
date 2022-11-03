@@ -54,7 +54,6 @@ export async function getMongodbData(districtName: string) {
   const data: dataType = response.data.res;
 
   let districtList: dataType[] = [];
-  //console.log('before : ', districtList)
 
   data.map((item: dataType) => {
     if (Object.hasOwn(item, "address") && item.address.dcDistrict == districtName) {
@@ -64,11 +63,8 @@ export async function getMongodbData(districtName: string) {
       return districtList.push(item);
     }
   });
-  //console.log('after : ', districtList)
   return districtList;
 }
-
-//getMongodbData("東區");
 
 export const districtReducer = districtSlice.reducer
 

@@ -8,4 +8,3 @@ async function CarParkChargeAPI() {
   return result.data;
 }
 export default CarParkChargeAPI;
-//CarParkChargeAPI();

@@ -8,7 +8,7 @@ export const store = configureStore({
   reducer: {
     district: districtReducer,
   },
-  // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
