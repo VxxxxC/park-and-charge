@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ParkAndCharge",
-    "slug": "ParkAndCharge",
+    "name": "Park-and-Charge",
+    "slug": "Park-and-Charge",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/parking.png",
@@ -17,8 +17,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "ParkAndCharge"
+      "bundleIdentifier": "vxxxxc.park-and-charge.app"
     },
     "android": {
       "adaptiveIcon": {
@@ -31,7 +30,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "b4ca204d-cefe-4a28-96cc-64cb91ba870b"
+        "projectId": "4b34ef70-0c14-469a-b831-08dc782dc11e"
       }
     }
   }
