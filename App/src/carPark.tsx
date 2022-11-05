@@ -16,11 +16,9 @@ console.log(`from carPark.tsx, express ENV : ${process.env.REACT_NATIVE_APP_EXPR
 function CarPark() {
   return (
     <SafeAreaView>
-      <Provider store={store}>
         <Box bg="dark.50">
           <CarParkDistrict />
         </Box>
-      </Provider>
     </SafeAreaView>
   );
 }

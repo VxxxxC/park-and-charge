@@ -1,14 +1,16 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { createLogger } from 'redux-logger';
-import { districtReducer } from './reducer';
+import { districtReducer } from './districtReducer';
+import { mapReducer } from "./mapReducer";
 
 const logger = createLogger();
 
 export const store = configureStore({
   reducer: {
     district: districtReducer,
+    map: mapReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
