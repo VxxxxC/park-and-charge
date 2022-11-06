@@ -38,6 +38,9 @@ function CarParkMap() {
 		dispatch(fetchMap());
 	}, []);
 
+	//console.log('data : ', selector.mapData);
+	//console.log('loading : ', selector.loading);
+
 	let data: any = selector.mapData[0];
 
 	const styles = StyleSheet.create({
@@ -56,12 +59,15 @@ function CarParkMap() {
 		<Center>
 			<View style={styles.container}>
 				<MapView style={styles.map} showsUserLocation={true} followsUserLocation={true}>
-					{data.map((item: any, index: number) => (
-						<Marker
-							key={index}
-							coordinate={{ latitude: item.latitude, longitude: item.longitude }}
-						/>
-					))}
+					{selector.loading == 'is fulfilled'
+						? data.map((item: any, index: number) => (
+								<Marker
+									key={index}
+									onPress={(e) => console.log(e.nativeEvent)}
+									coordinate={{ latitude: item.latitude, longitude: item.longitude }}
+								/>
+						  ))
+						: null}
 				</MapView>
 			</View>
 		</Center>
