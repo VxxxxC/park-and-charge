@@ -63,6 +63,8 @@ function CarParkMap() {
 						? data.map((item: any, index: number) => (
 								<Marker
 									key={index}
+									description={item.name}
+                  icon={item?.renditionUrls?.carpark_photo}
 									onPress={(e) => console.log(e.nativeEvent)}
 									coordinate={{ latitude: item.latitude, longitude: item.longitude }}
 								/>
