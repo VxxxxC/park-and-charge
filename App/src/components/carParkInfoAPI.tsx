@@ -1,6 +1,6 @@
 import CarParkVacancyAPI from './carParkVacancyAPI';
 import Spacer from './spacer';
-import { Center, HStack, Image, ScrollView, Text, View, VStack } from 'native-base';
+import { HStack, Image, ScrollView, Spinner, Text, View, VStack } from 'native-base';
 import { useAppSelector } from './redux/hooks';
 
 function CarParkInfoAPI() {
@@ -85,7 +85,22 @@ function CarParkInfoAPI() {
 					))}
 				</ScrollView>
 			) : (
-				<Image source={require('./asset/crane.gif')} alt="lazy=Loading" />
+				<View
+					style={{
+						height: '100%',
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}
+				>
+					<View style={{ marginBottom: '50%' }}>
+						<Spinner size="lg" />
+						<Text color="primary.500" fontSize="lg" fontWeight="bold">
+							{' '}
+							Loading{' '}
+						</Text>
+					</View>
+				</View>
 			)}
 		</>
 	);

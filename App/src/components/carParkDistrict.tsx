@@ -5,8 +5,6 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { useAppDispatch } from './redux/hooks';
 import { fetchDistrict } from './redux/districtReducer';
 import CarParkInfoAPI from './carParkInfoAPI';
-//const CarParkInfoAPI = lazy(() => import('./carParkInfoAPI'));
-//import Lazyloading from './lazyloading';
 
 function CarParkDistrict() {
 	type itemType = {
@@ -94,9 +92,6 @@ function CarParkDistrict() {
 			/>
 			<Spacer />
       <CarParkInfoAPI/>
-        {/*<Suspense fallback={<Lazyloading />}>
-				<CarParkInfoAPI />
-			</Suspense>*/}
 		</>
 	);
 }
