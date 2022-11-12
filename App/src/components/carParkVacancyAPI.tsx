@@ -1,6 +1,6 @@
 import axios from "axios";
 import { HStack, VStack, Text } from "native-base";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 function CarParkVacancyAPI({ Id }: any) {
   let carparkID = Id;
@@ -8,26 +8,22 @@ function CarParkVacancyAPI({ Id }: any) {
   const [updateTime, setUpdateTime] = useState("");
   const [vacancy, setVacancy] = useState<number>(0);
 
-  useEffect(() => {
-    let mounted = true;
-
+  const fetchData = useCallback(() => {
     axios(
       `https://api.data.gov.hk/v1/carpark-info-vacancy?data=vacancy&carparkIds=${carparkID}&lang=zh_TW`
     ).then((result) => {
-      if (mounted) {
-        const info = result.data.results[0];
-        const privateCarInfo = info.privateCar;
-        const privateCarVacancy = privateCarInfo[0];
+      const info = result.data.results[0];
+      const privateCarInfo = info.privateCar;
+      const privateCarVacancy = privateCarInfo[0];
 
-        setVacancy(privateCarVacancy.vacancy);
-        setUpdateTime(privateCarVacancy.lastupdate);
-      }
+      setVacancy(privateCarVacancy.vacancy);
+      setUpdateTime(privateCarVacancy.lastupdate);
     });
-
-    return () => {
-      mounted = false;
-    };
   }, [Id]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData])
 
   return (
     <>

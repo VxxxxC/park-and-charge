@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { StyleSheet } from "react-native";
 import { Flex, Text, ScrollView, VStack } from "native-base";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -24,7 +24,7 @@ function CarCharge() {
     text: { fontSize: 8, margin: 6 },
   });
 
-  useMemo(async () => {
+  const fetchData = useCallback(async () => {
     let mounted = true;
 
     const api: any = await CarParkChargeAPI();
@@ -36,6 +36,10 @@ function CarCharge() {
       mounted = false;
     };
   }, []);
+
+  useEffect(()=>{
+    fetchData()
+  },[fetchData])
 
   let title = data.map((title: string) => Object.keys(title));
   let content = data.map((content: string) => Object.values(content));

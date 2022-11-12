@@ -1,43 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, Dimensions } from 'react-native';
-import { Center, View, Text } from 'native-base';
+import { Center, View, Text, Image, ZStack } from 'native-base';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import axios from 'axios';
 import { useAppDispatch } from './components/redux/hooks';
 import { useAppSelector } from './components/redux/hooks';
 import { fetchMap } from './components/redux/mapReducer';
+import CarParkMapDetailDisplay from './components/carParkMapDetailDisplay';
 
 function CarParkMap() {
 	let mounted = false;
 	const dispatch = useAppDispatch();
 	const selector = useAppSelector((state) => state.map);
-	// const infoAPI = `${process.env.REACT_NATIVE_APP_EXPRESS_API}/getCarParkInfo`;
 
-	// const [data, setData]: any = useState([]);
-
-	// useEffect(() => {
-	// 	axios.post(infoAPI).then((list: any) => {
-	// 		type dataType = typeof list.data.res;
-	// 		const data: dataType = list.data.res;
-	// 		setData(data);
-	// 	});
-	// }, []);
-
-	// const useData = useEffect(
-	// 	() =>
-	// 		data.map((item: any, index: number) => (
-	// 			<Marker key={index} coordinate={{ latitude: item.latitude, longitude: item.longitude }} />
-	// 		)),
-	// 	[data]
-	// );
-
-	// console.log(useData);
-
-	const fetchData = useEffect(() => {
+	const fetchData = useCallback(() => {
 		dispatch(fetchMap());
 	}, []);
 
+  useEffect(()=>{
+    fetchData()
+  },[fetchData])
 	//console.log('data : ', selector.mapData);
 	//console.log('loading : ', selector.loading);
 
@@ -58,18 +41,35 @@ function CarParkMap() {
 	return (
 		<Center>
 			<View style={styles.container}>
-				<MapView style={styles.map} showsUserLocation={true} followsUserLocation={true}>
+				<MapView
+					style={styles.map}
+					showsScale={true}
+					showsCompass={true}
+					//showsUserLocation={true}
+					//followsUserLocation={true}
+					//userLocationCalloutEnabled={true}
+					showsMyLocationButton={true}
+				>
 					{selector.loading == 'is fulfilled'
-						? data.map((item: any, index: number) => (
+						? data.map((item: any) => (
 								<Marker
-									key={index}
-									description={item.name}
-                  icon={item?.renditionUrls?.carpark_photo}
+									key={item.park_Id}
+									title={item.name}
+									description={item?.displayAddress}
 									onPress={(e) => console.log(e.nativeEvent)}
 									coordinate={{ latitude: item.latitude, longitude: item.longitude }}
-								/>
+								>
+									{/*}<Image
+										source={item?.renditionUrls?.carpark_photo}
+										style={{ height: 6, width: 6 }}
+									/>*/}
+								</Marker>
 						  ))
 						: null}
+
+				<View>
+						<CarParkMapDetailDisplay />
+				</View>
 				</MapView>
 			</View>
 		</Center>

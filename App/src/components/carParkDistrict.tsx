@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, lazy, Suspense } from 'react';
 import Spacer from './spacer';
 import axios from 'axios';
 import DropDownPicker from 'react-native-dropdown-picker';
-import CarParkInfoAPI from './carParkInfoAPI';
 import { useAppDispatch } from './redux/hooks';
 import { fetchDistrict } from './redux/districtReducer';
+import CarParkInfoAPI from './carParkInfoAPI';
+//const CarParkInfoAPI = lazy(() => import('./carParkInfoAPI'));
+//import Lazyloading from './lazyloading';
 
 function CarParkDistrict() {
 	type itemType = {
@@ -23,31 +25,25 @@ function CarParkDistrict() {
 	const [value, setValue] = useState('');
 	const [items, setItems] = useState<itemType[]>([]);
 
-	useEffect(() => {
-		let mounted = true;
-		//console.log(infoAPI)
-
+	const fetchData = useCallback(() => {
 		axios
 			.post(infoAPI)
 			.then((response) => {
-				if (mounted) {
-					// console.log(response.data.res);
-					getData(response.data.res);
-				}
-				return;
+				// console.log(response.data.res);
+				getData(response.data.res);
 			})
 			.catch((error) => {
 				console.error(error.response.headers);
 				console.error(error.response.status);
 				console.error(error.response.data);
 			});
-
-		return () => {
-			mounted = false;
-		};
 	}, []);
 
 	useEffect(() => {
+		fetchData();
+	}, [fetchData]);
+
+	const dropdownList = useCallback(() => {
 		data.map((item: any) => {
 			if (!districtList.includes(item.district) && item.district !== undefined) {
 				districtList.push(item.district);
@@ -61,8 +57,7 @@ function CarParkDistrict() {
 			}
 		});
 
-		// console.log(districtList);
-
+		// below is mapping the districtList data to create dropdown menu
 		let listItem: itemType[] = districtList.map<itemType>((res: any) => ({
 			label: res,
 			value: res,
@@ -70,8 +65,11 @@ function CarParkDistrict() {
 		setItems(listItem);
 	}, [data]);
 
-	// console.log(items)
+  useEffect(()=>{
+  dropdownList();
+  },[dropdownList])
 
+	// below is dispatching selected district data to redux reducer
 	useEffect(() => {
 		dispatch(fetchDistrict(value));
 	}, [value]);
@@ -95,7 +93,10 @@ function CarParkDistrict() {
 				setItems={setItems}
 			/>
 			<Spacer />
-			<CarParkInfoAPI />
+      <CarParkInfoAPI/>
+        {/*<Suspense fallback={<Lazyloading />}>
+				<CarParkInfoAPI />
+			</Suspense>*/}
 		</>
 	);
 }
