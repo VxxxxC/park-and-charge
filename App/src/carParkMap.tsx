@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useReducer } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, Dimensions } from 'react-native';
-import { Center, View, Text, Image, ZStack } from 'native-base';
+import { Center, View, Text, Image, ZStack, Spinner, Box } from 'native-base';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import axios from 'axios';
 import { useAppDispatch } from './components/redux/hooks';
@@ -10,7 +10,9 @@ import { fetchMap } from './components/redux/mapReducer';
 import CarParkMapDetailDisplay from './components/carParkMapDetailDisplay';
 
 function CarParkMap() {
-	let mounted = false;
+
+  const [opened, toggle] : boolean = useReducer((opened:boolean) => !opened, false);
+
 	const dispatch = useAppDispatch();
 	const selector = useAppSelector((state) => state.map);
 
@@ -18,9 +20,9 @@ function CarParkMap() {
 		dispatch(fetchMap());
 	}, []);
 
-  useEffect(()=>{
-    fetchData()
-  },[fetchData])
+	useEffect(() => {
+		fetchData();
+	}, [fetchData]);
 	//console.log('data : ', selector.mapData);
 	//console.log('loading : ', selector.loading);
 
@@ -39,7 +41,7 @@ function CarParkMap() {
 	});
 
 	return (
-		<Center>
+		<>
 			<View style={styles.container}>
 				<MapView
 					style={styles.map}
@@ -56,7 +58,7 @@ function CarParkMap() {
 									key={item.park_Id}
 									title={item.name}
 									description={item?.displayAddress}
-									onPress={(e) => console.log(e.nativeEvent)}
+                  onPress={toggle}
 									coordinate={{ latitude: item.latitude, longitude: item.longitude }}
 								>
 									{/*}<Image
@@ -66,13 +68,14 @@ function CarParkMap() {
 								</Marker>
 						  ))
 						: null}
-
-				<View>
-						<CarParkMapDetailDisplay />
-				</View>
 				</MapView>
+      <CarParkMapDetailDisplay popout={opened}/>
 			</View>
-		</Center>
+
+	
+			
+			
+		</>
 	);
 }
 

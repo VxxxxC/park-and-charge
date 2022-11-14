@@ -1,25 +1,48 @@
-import React from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { Center, View, Text, Box } from 'native-base';
-import { TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-function CarParkMapDetailDisplay() {
+function CarParkMapDetailDisplay({ popout }: boolean) {
+	const pop = popout;
+	console.log(pop);
+
+	const [hover, toggleHover] = useReducer((hover) => !hover, false);
+
+	const styles = StyleSheet.create({
+		legend: {
+			width: '25%',
+			height: '5%',
+			borderWidth: 1,
+			borderColor: 'black',
+			borderRadius: 10,
+			position: 'absolute',
+			top: -10,
+			left: '45%',
+			fontWeight: 'bold',
+			backgroundColor: '#FFFFFF',
+		},
+	});
+
 	return (
-		<SafeAreaView>
-			<Box
-				style={{
-					margin: 10,
-					padding: 15,
-					borderColor: 'black',
-					borderWidth: 2,
-					borderRadius: 20,
-					height: '50%',
-					backgroundColor: 'white',
-				}}
-			>
-				<Text>carParkMapDetailDisplaycarParkMapDetailDisplay</Text>
-			</Box>
-		</SafeAreaView>
+		<Box
+			style={{
+				position: 'absolute',
+				bottom: !pop ? -220 : 50,
+				height: '30%',
+				padding: 15,
+				borderColor: 'black',
+				borderWidth: 2,
+				borderRadius: 20,
+				backgroundColor: 'white',
+			}}
+			shadow="9"
+		>
+			<Box style={styles.legend} shadow="9" />
+			<Text style={{ color: !pop ? 'red' : 'green' }}>
+				carParkMapDetailDisplaycarParkMapDetailDisplay
+			</Text>
+		</Box>
 	);
 }
 
