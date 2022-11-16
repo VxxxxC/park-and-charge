@@ -3,7 +3,7 @@ import { Center, View, Text, Box } from 'native-base';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-function CarParkMapDetailDisplay({ popout }: boolean) {
+function CarParkMapScrollUpContainer({ popout }: boolean) {
 	const pop = popout;
 	console.log(pop);
 
@@ -46,4 +46,4 @@ function CarParkMapDetailDisplay({ popout }: boolean) {
 	);
 }
 
-export default CarParkMapDetailDisplay;
+export default CarParkMapScrollUpContainer;

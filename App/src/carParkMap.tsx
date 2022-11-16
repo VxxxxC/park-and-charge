@@ -8,10 +8,11 @@ import { useAppDispatch } from './components/redux/hooks';
 import { useAppSelector } from './components/redux/hooks';
 import { fetchMap } from './components/redux/mapReducer';
 import CarParkMapDetailDisplay from './components/carParkMapDetailDisplay';
+import CarParkDistrict from './components/carParkDistrict';
+import CarParkInfoAPI from './components/carParkInfoAPI';
 
 function CarParkMap() {
-
-  const [opened, toggle] : boolean = useReducer((opened:boolean) => !opened, false);
+	const [opened, toggle]: boolean = useReducer((opened: boolean) => !opened, false);
 
 	const dispatch = useAppDispatch();
 	const selector = useAppSelector((state) => state.map);
@@ -58,7 +59,7 @@ function CarParkMap() {
 									key={item.park_Id}
 									title={item.name}
 									description={item?.displayAddress}
-                  onPress={toggle}
+									onPress={toggle}
 									coordinate={{ latitude: item.latitude, longitude: item.longitude }}
 								>
 									{/*}<Image
@@ -69,12 +70,10 @@ function CarParkMap() {
 						  ))
 						: null}
 				</MapView>
-      <CarParkMapDetailDisplay popout={opened}/>
+				<CarParkDistrict />
+				<CarParkInfoAPI />
+				{/* <CarParkMapDetailDisplay popout={opened} /> */}
 			</View>
-
-	
-			
-			
 		</>
 	);
 }

@@ -24,11 +24,11 @@ const districtSlice = createSlice({
 	initialState,
 	reducers: {
 		/* selectDistrict: (state, action: PayloadAction<typeof initialState>) => {
-	   fetchDistrict(action.payload)
-		const mongodb: any = getMongodbData(action.payload);
-	   mongodb.then((res:any)=>{state.push(res)})
-	   console.log('<<state on reducer>> : ', state) 
-	 } */
+     fetchDistrict(action.payload)
+    const mongodb: any = getMongodbData(action.payload);
+     mongodb.then((res:any)=>{state.push(res)})
+     console.log('<<state on reducer>> : ', state) 
+   } */
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchDistrict.pending, (state, action) => {
@@ -54,6 +54,9 @@ export async function getMongodbData(districtName: string) {
 
 	let districtList: dataType[] = [];
 
+	if (districtName == '全部') {
+		data.map((item: dataType) => districtList.push(item));
+	}
 	data.map((item: dataType) => {
 		if (Object.hasOwn(item, 'address') && item.address.dcDistrict == districtName) {
 			return districtList.push(item);

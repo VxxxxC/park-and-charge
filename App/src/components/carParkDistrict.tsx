@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback, lazy, Suspense } from 'react';
+import { View } from 'native-base';
 import Spacer from './spacer';
 import axios from 'axios';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -60,12 +61,13 @@ function CarParkDistrict() {
 			label: res,
 			value: res,
 		}));
+		listItem.unshift({ label: '全部', value: '全部' });
 		setItems(listItem);
 	}, [data]);
 
-  useEffect(()=>{
-  dropdownList();
-  },[dropdownList])
+	useEffect(() => {
+		dropdownList();
+	}, [dropdownList]);
 
 	// below is dispatching selected district data to redux reducer
 	useEffect(() => {
@@ -74,24 +76,26 @@ function CarParkDistrict() {
 
 	return (
 		<>
-			<DropDownPicker
-				placeholder={'選擇區域'}
-				style={{
-					backgroundColor: 'white',
-				}}
-				textStyle={{
-					fontSize: 25,
-				}}
-				labelStyle={{ fontWeight: 'bold' }}
-				open={open}
-				value={value}
-				items={items}
-				setOpen={setOpen}
-				setValue={setValue}
-				setItems={setItems}
-			/>
-			<Spacer />
-      <CarParkInfoAPI/>
+			<View style={{ position: 'absolute', top: 50, marginHorizontal: 100 }}>
+				<DropDownPicker
+					placeholder={'選擇區域'}
+					style={{
+						backgroundColor: 'white',
+					}}
+					textStyle={{
+						fontSize: 25,
+					}}
+					labelStyle={{ fontWeight: 'bold' }}
+					open={open}
+					value={value}
+					items={items}
+					setOpen={setOpen}
+					setValue={setValue}
+					setItems={setItems}
+				/>
+			</View>
+			{/*}			<Spacer />
+      <CarParkInfoAPI/> */}
 		</>
 	);
 }
