@@ -4,30 +4,17 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { Center, View, Text, Image, ZStack, Spinner, Box } from 'native-base';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import axios from 'axios';
-import { useAppDispatch } from './components/redux/hooks';
-import { useAppSelector } from './components/redux/hooks';
-import { fetchMap } from './components/redux/mapReducer';
-import CarParkMapDetailDisplay from './components/carParkMapDetailDisplay';
-import CarParkDistrict from './components/carParkDistrict';
-import CarParkInfoAPI from './components/carParkInfoAPI';
+import { useAppDispatch } from './redux/hooks';
+import { useAppSelector } from './redux/hooks';
+import { fetchMap } from './redux/mapReducer';
 
 function CarParkMap() {
 	const [opened, toggle]: boolean = useReducer((opened: boolean) => !opened, false);
 
-	const dispatch = useAppDispatch();
-	const selector = useAppSelector((state) => state.map);
+	const selector = useAppSelector((state) => state.district);
 
-	const fetchData = useCallback(() => {
-		dispatch(fetchMap());
-	}, []);
-
-	useEffect(() => {
-		fetchData();
-	}, [fetchData]);
 	//console.log('data : ', selector.mapData);
 	//console.log('loading : ', selector.loading);
-
-	let data: any = selector.mapData[0];
 
 	const styles = StyleSheet.create({
 		container: {
@@ -54,7 +41,7 @@ function CarParkMap() {
 					showsMyLocationButton={true}
 				>
 					{selector.loading == 'is fulfilled'
-						? data.map((item: any) => (
+						? selector.districtData.map((item: any) => (
 								<Marker
 									key={item.park_Id}
 									title={item.name}
@@ -70,8 +57,6 @@ function CarParkMap() {
 						  ))
 						: null}
 				</MapView>
-				<CarParkDistrict />
-				<CarParkInfoAPI />
 				{/* <CarParkMapDetailDisplay popout={opened} /> */}
 			</View>
 		</>

@@ -76,7 +76,7 @@ function CarParkDistrict() {
 
 	return (
 		<>
-			<View style={{ position: 'absolute', top: 50, marginHorizontal: 100 }}>
+			<View style={{ zIndex:1, position: 'absolute', top: 50, width: 200, marginHorizontal: 10 }}>
 				<DropDownPicker
 					placeholder={'選擇區域'}
 					style={{

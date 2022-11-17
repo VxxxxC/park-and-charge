@@ -9,17 +9,18 @@ import CarParkVacancyAPI from "./components/carParkVacancyAPI";
 import Spacer from "./components/spacer";
 import { Provider } from 'react-redux';
 import { store } from './components/redux/store';
+import CarParkMap from "./components/carParkMap";
 
 
 console.log(`from carPark.tsx, express ENV : ${process.env.REACT_NATIVE_APP_EXPRESS_API}`);
 
 function CarPark() {
   return (
-    <SafeAreaView>
         <Box bg="dark.50">
-          <CarParkDistrict />
+      <CarParkDistrict/>
+      <CarParkMap/>
+      <CarParkInfoAPI/>
         </Box>
-    </SafeAreaView>
   );
 }
 

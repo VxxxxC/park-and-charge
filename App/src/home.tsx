@@ -24,7 +24,7 @@ function Home() {
 			>
 				<Tabs.Screen
 					name="CarPark"
-					component={CarParkMap}
+					component={CarPark}
 					options={{
 						tabBarIcon: () => <FontAwesome5 name="parking" size={24} color="orange" />,
 					}}

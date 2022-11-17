@@ -30,7 +30,21 @@ function CarParkInfoAPI() {
 				>
 					{selector.districtData.map((item: any) => (
 						<>
-							<TouchableOpacity key={item.park_Id} style={{ height: 250, opacity: 0.8, backgroundColor: 'silver', borderWidth:2, borderColor:'white', borderRadius: 10, marginHorizontal: 5, paddingHorizontal:15, paddingVertical:15 }}>
+							<TouchableOpacity
+								key={item.park_Id}
+								style={{
+									zIndex: 1,
+									height: 250,
+									opacity: 0.8,
+									backgroundColor: 'silver',
+									borderWidth: 2,
+									borderColor: 'white',
+									borderRadius: 10,
+									marginHorizontal: 5,
+									paddingHorizontal: 15,
+									paddingVertical: 15,
+								}}
+							>
 								<VStack>
 									<Text color="dark.900" fontSize="md" fontWeight="bold">
 										{' '}
