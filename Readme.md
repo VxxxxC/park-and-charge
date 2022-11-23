@@ -2,4 +2,4 @@
 
 A real-time car park vacancy update and charging slot application
 
-![ParkAndCharge-1](https://user-images.githubusercontent.com/80626616/203536485-09c97195-b40d-4c18-9337-183243b8ec62.gif)
+![park_and_charge](https://user-images.githubusercontent.com/80626616/203578312-baef5301-3ac0-47ee-9625-bf51c6599909.gif)
