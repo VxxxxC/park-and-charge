@@ -3,6 +3,7 @@ import runningAt from 'running-at';
 import cors from 'cors';
 import updateAPI from './updateCarParkInfoAPI'
 import carParkInfo from './getCarkParkInfo'
+import updateCarChargeAPI from './updateCarChargeInfoAPI'
 
 
 const app = express();
@@ -16,6 +17,8 @@ app.use(cors());
 
 app.use('/updateCarParkInfo', updateAPI);
 app.use('/getCarParkInfo', carParkInfo);
+
+app.use('/updateCarChargeInfoAPI', updateCarChargeAPI)
 
 app.get('/', (req, res) => {
   res.json('This is Park and Charge API by AWS EC2')

@@ -4,7 +4,7 @@ import { Box, HStack, Image, ScrollView, Spinner, Text, View, VStack } from 'nat
 import { useAppSelector } from './redux/hooks';
 import { TouchableOpacity } from 'react-native';
 
-function CarParkInfoAPI() {
+function CarParkInfoAPI({ selRef }: any) {
 	const selector = useAppSelector((state) => state.district);
 
 	return (
@@ -32,6 +32,7 @@ function CarParkInfoAPI() {
 						<>
 							<TouchableOpacity
 								key={item.park_Id}
+								onPress={() => selRef(item.latitude, item.longitude)}
 								style={{
 									zIndex: 1,
 									height: 250,
