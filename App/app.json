@@ -2,7 +2,7 @@
   "expo": {
     "name": "Park-and-Charge",
     "slug": "Park-and-Charge",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/parking.png",
     "splash": {
@@ -11,7 +11,8 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/2a1319c5-734e-4ba0-9189-9ef6c83bfe8c"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -32,6 +33,9 @@
       "eas": {
         "projectId": "2a1319c5-734e-4ba0-9189-9ef6c83bfe8c"
       }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
     }
   }
 }
