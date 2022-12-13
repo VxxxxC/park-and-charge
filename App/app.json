@@ -17,7 +17,7 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "vxxxxc.park-and-charge.app"
+      "bundleIdentifier": "Park-and-Charge"
     },
     "android": {
       "adaptiveIcon": {
@@ -30,7 +30,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "4b34ef70-0c14-469a-b831-08dc782dc11e"
+        "projectId": "2a1319c5-734e-4ba0-9189-9ef6c83bfe8c"
       }
     }
   }
