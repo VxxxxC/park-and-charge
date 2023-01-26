@@ -20,8 +20,14 @@ function CarParkMap() {
 	const fetchData = useCallback(
 		(id: string) => {
 			console.log('ID received : ', id);
+			const config = {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			};
 			axios(
-				`https://api.data.gov.hk/v1/carpark-info-vacancy?data=vacancy&carparkIds=${id}&lang=zh_TW`
+				`https://api.data.gov.hk/v1/carpark-info-vacancy?data=vacancy&carparkIds=${id}&lang=zh_TW`,
+				config
 			).then((result) => {
 				const info = result.data.results[0];
 				const privateCarInfo = info.privateCar;

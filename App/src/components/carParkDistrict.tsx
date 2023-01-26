@@ -18,6 +18,11 @@ function CarParkDistrict() {
 	const districtList: string[] = [];
 
 	const infoAPI = `${process.env.REACT_NATIVE_APP_EXPRESS_API}/getCarParkInfo`;
+	const config = {
+		heades: {
+			'Content-Type': 'application/json',
+		},
+	};
 
 	const [data, getData] = useState([]);
 	const [open, setOpen] = useState(false);
@@ -26,7 +31,7 @@ function CarParkDistrict() {
 
 	const fetchData = useCallback(() => {
 		axios
-			.post(infoAPI)
+			.post(infoAPI, config)
 			.then((response) => {
 				// console.log(response.data.res);
 				getData(response.data.res);
@@ -76,7 +81,7 @@ function CarParkDistrict() {
 
 	return (
 		<>
-			<View style={{ zIndex:1, position: 'absolute', top: 50, width: 200, marginHorizontal: 10 }}>
+			<View style={{ zIndex: 1, position: 'absolute', top: 50, width: 200, marginHorizontal: 10 }}>
 				<DropDownPicker
 					placeholder={'選擇區域'}
 					style={{

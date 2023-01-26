@@ -2,6 +2,11 @@ import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const infoAPI = `${process.env.REACT_NATIVE_APP_EXPRESS_API}/getCarParkInfo`;
+const config = {
+	headers: {
+		'Content-Type': 'application/json',
+	},
+};
 
 interface mapState {
 	mapData: string[];
@@ -24,11 +29,11 @@ const mapSlice = createSlice({
 	initialState,
 	reducers: {
 		/* selectDistrict: (state, action: PayloadAction<typeof initialState>) => {
-	   fetchMap(action.payload)
-		const mongodb: any = getMongodbData(action.payload);
-	   mongodb.then((res:any)=>{state.push(res)})
-	   console.log('<<state on reducer>> : ', state) 
-	 } */
+     fetchMap(action.payload)
+    const mongodb: any = getMongodbData(action.payload);
+     mongodb.then((res:any)=>{state.push(res)})
+     console.log('<<state on reducer>> : ', state) 
+   } */
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchMap.pending, (state, action) => {
@@ -48,7 +53,7 @@ const mapSlice = createSlice({
 });
 
 export async function getMongodbData() {
-	const response: any = await axios.post(infoAPI);
+	const response: any = await axios.post(infoAPI, config);
 	type dataType = typeof response.data.res;
 	const data: dataType = response.data.res;
 

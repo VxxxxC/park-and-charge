@@ -9,8 +9,14 @@ function CarParkVacancyAPI({ Id }: any) {
 	const [vacancy, setVacancy] = useState<number>(0);
 
 	const fetchData = useCallback(() => {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
 		axios(
-			`https://api.data.gov.hk/v1/carpark-info-vacancy?data=vacancy&carparkIds=${carparkID}&lang=zh_TW`
+			`https://api.data.gov.hk/v1/carpark-info-vacancy?data=vacancy&carparkIds=${carparkID}&lang=zh_TW`,
+			config
 		).then((result) => {
 			const info = result.data.results[0];
 			const privateCarInfo = info.privateCar;
