@@ -1,41 +1,41 @@
 {
-  "expo": {
-    "name": "Park-and-Charge",
-    "slug": "Park-and-Charge",
-    "version": "1.0.1",
-    "orientation": "portrait",
-    "icon": "./assets/parking.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0,
-      "url": "https://u.expo.dev/2a1319c5-734e-4ba0-9189-9ef6c83bfe8c"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "bundleIdentifier": "Park-and-Charge"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "2a1319c5-734e-4ba0-9189-9ef6c83bfe8c"
-      }
-    },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    }
-  }
+	"expo": {
+		"name": "Park-and-Charge",
+		"slug": "Park-and-Charge",
+		"version": "1.0.1",
+		"orientation": "portrait",
+		"icon": "./assets/parking.png",
+		"splash": {
+			"image": "./assets/splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#ffffff"
+		},
+		"updates": {
+			"fallbackToCacheTimeout": 0,
+			"url": "https://u.expo.dev/2a1319c5-734e-4ba0-9189-9ef6c83bfe8c"
+		},
+		"assetBundlePatterns": [
+			"**/*"
+		],
+		"ios": {
+			"bundleIdentifier": "Park-and-Charge"
+		},
+		"android": {
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/adaptive-icon.png",
+				"backgroundColor": "#FFFFFF"
+			}
+		},
+		"web": {
+			"favicon": "./assets/favicon.png"
+		},
+		"extra": {
+			"eas": {
+				"projectId": "2a1319c5-734e-4ba0-9189-9ef6c83bfe8c"
+			}
+		},
+		"runtimeVersion": {
+			"policy": "sdkVersion"
+		}
+	}
 }
