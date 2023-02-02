@@ -3,10 +3,10 @@ import axios from 'axios';
 
 const infoAPI = `${process.env.REACT_NATIVE_APP_EXPRESS_API}/getCarParkInfo`;
 const config = {
-  headers:{
-    'Content-Type': 'application/json'
-  }
-}
+	headers: {
+		'Content-Type': 'application/json',
+	},
+};
 
 interface districtState {
 	districtData: string[];
@@ -37,23 +37,23 @@ const districtSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchDistrict.pending, (state, action) => {
-			console.log('this is pending : ',action)
+			//console.log('this is pending : ',action)
 			state.loading = 'is pending';
 		});
 		builder.addCase(fetchDistrict.fulfilled, (state, action) => {
-			console.log('this is fulfilled : ',action)
+			//console.log('this is fulfilled : ',action)
 			state.districtData = action.payload;
 			state.loading = 'is fulfilled';
 		});
 		builder.addCase(fetchDistrict.rejected, (state, action) => {
-			console.log('this is rejected : ',action)
+			//console.log('this is rejected : ',action)
 			state.loading = 'is rejected';
 		});
 	},
 });
 
 export async function getMongodbData(districtName: string) {
-	const response: any = await axios.post(infoAPI,config);
+	const response: any = await axios.post(infoAPI, config);
 	type dataType = typeof response.data.res;
 	const data: dataType = response.data.res;
 

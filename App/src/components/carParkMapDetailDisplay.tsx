@@ -3,7 +3,7 @@ import { Center, View, Text, Box } from 'native-base';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-function CarParkMapScrollUpContainer({ popout }: boolean) {
+function CarParkMapScrollUpContainer({ popout }: any) {
 	const pop = popout;
 	console.log(pop);
 

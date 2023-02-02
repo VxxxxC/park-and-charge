@@ -15,18 +15,14 @@ import LoadingIcon from './components/loadingIcon';
 console.log(`from carPark.tsx, express ENV : ${process.env.REACT_NATIVE_APP_EXPRESS_API}`);
 
 function CarPark() {
-
-  const selector = useAppSelector((state) => state.district);
-  console.log(selector.loading);
+	const selector = useAppSelector((state) => state.district);
+	console.log(`loading : ${selector.loading}`);
 	return (
 		<Box bg="dark.50">
 			<CarParkMap />
 			<CarParkDistrict />
 			<CarParkInfoAPI />
-      {selector.loading == 'is pending' ? (
-    <LoadingIcon/>
-      ) : null }
-    
+			{selector.loading == 'is pending' ? <LoadingIcon /> : null}
 		</Box>
 	);
 }
