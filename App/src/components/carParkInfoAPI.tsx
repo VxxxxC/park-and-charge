@@ -2,9 +2,10 @@ import CarParkVacancyAPI from './carParkVacancyAPI';
 import Spacer from './spacer';
 import { HStack, Image, Spinner, Text, View, VStack } from 'native-base';
 import { useAppSelector } from './redux/hooks';
-import { Animated, ScrollView, TouchableOpacity } from 'react-native';
+import { Animated } from 'react-native';
 import { Marker } from 'react-native-maps';
-import { useEffect } from 'react';
+import React , { useEffect } from 'react';
+import CarParkMap from './carParkMap';
 
 function CarParkInfoAPI() {
 	const selector = useAppSelector((state) => state.district);
@@ -12,14 +13,16 @@ function CarParkInfoAPI() {
 	let animation = new Animated.Value(0);
 	let dataIndex = 0;
 
-	useEffect(() => {}, [selector.districtData]);
-
 	return (
 		<>
+      <CarParkMap/>
 			{selector.loading == 'is fulfilled' ? (
 				<Animated.ScrollView
 					horizontal
 					showsHorizontalScrollIndicator={false}
+					onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: animation }, }, },],
+            {useNativeDriver: true}
+          )}
 					style={{
 						position: 'absolute',
 						bottom: 50,
@@ -31,7 +34,12 @@ function CarParkInfoAPI() {
 						console.log('dataIndex : ', dataIndex);
 						return (
 							<>
-								<TouchableOpacity
+								<View
+                  onLayout={(event) => {
+    const {x , y , height , width } = event.nativeEvent.layout;
+    console.log({x,y,height,width});
+  }
+}
 									key={index}
 									style={{
 										zIndex: 1,
@@ -94,7 +102,7 @@ function CarParkInfoAPI() {
 											<CarParkVacancyAPI Id={item.park_Id} />
 										</HStack>
 									</VStack>
-								</TouchableOpacity>
+								</View>
 							</>
 						);
 					})}

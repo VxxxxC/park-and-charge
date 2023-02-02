@@ -19,7 +19,6 @@ function CarPark() {
 	console.log(`loading : ${selector.loading}`);
 	return (
 		<Box bg="dark.50">
-			<CarParkMap />
 			<CarParkDistrict />
 			<CarParkInfoAPI />
 			{selector.loading == 'is pending' ? <LoadingIcon /> : null}
