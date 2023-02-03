@@ -2,27 +2,31 @@ import CarParkVacancyAPI from './carParkVacancyAPI';
 import Spacer from './spacer';
 import { HStack, Image, Spinner, Text, View, VStack } from 'native-base';
 import { useAppSelector } from './redux/hooks';
-import { Animated } from 'react-native';
+import { Animated, Dimensions } from 'react-native';
 import { Marker } from 'react-native-maps';
-import React , { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import CarParkMap from './carParkMap';
 
 function CarParkInfoAPI() {
 	const selector = useAppSelector((state) => state.district);
+
+	const { width, height } = Dimensions.get('window');
+	const cardHeight = height / 4;
+	const cardWidth = width - 50;
 
 	let animation = new Animated.Value(0);
 	let dataIndex = 0;
 
 	return (
 		<>
-      <CarParkMap/>
+			<CarParkMap />
 			{selector.loading == 'is fulfilled' ? (
 				<Animated.ScrollView
 					horizontal
 					showsHorizontalScrollIndicator={false}
-					onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: animation }, }, },],
-            {useNativeDriver: true}
-          )}
+					onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: animation } } }], {
+						useNativeDriver: true,
+					})}
 					style={{
 						position: 'absolute',
 						bottom: 50,
@@ -35,15 +39,15 @@ function CarParkInfoAPI() {
 						return (
 							<>
 								<View
-                  onLayout={(event) => {
-    const {x , y , height , width } = event.nativeEvent.layout;
-    console.log({x,y,height,width});
-  }
-}
+									onLayout={(event) => {
+										const { x, y, height, width } = event.nativeEvent.layout;
+										console.log('onLayout : ', { x, y, height, width });
+									}}
 									key={index}
 									style={{
 										zIndex: 1,
-										height: 250,
+										height: cardHeight,
+										width: cardWidth,
 										opacity: 0.8,
 										backgroundColor: 'white',
 										borderRadius: 10,
@@ -52,56 +56,63 @@ function CarParkInfoAPI() {
 										paddingVertical: 15,
 									}}
 								>
-									<VStack space={5}>
-										<HStack space={5}>
-											{item?.renditionUrls?.carpark_photo ? (
-												<Image
-													source={{ uri: `${item?.renditionUrls?.carpark_photo}` }}
-													borderRadius={10}
-													size="xl"
-													alt="image"
-												/>
-											) : null}
+									<Animated.ScrollView>
+										<VStack space={5}>
+											<HStack space={5}>
+												{item?.renditionUrls?.carpark_photo ? (
+													<Image
+														source={{ uri: `${item?.renditionUrls?.carpark_photo}` }}
+														borderRadius={10}
+														size="xl"
+														alt="image"
+													/>
+												) : null}
 
-											<VStack space={5}>
-												<Text color="dark.50" fontSize="md" fontWeight="bold">
-													{' '}
-													{item.name}{' '}
-												</Text>
-												<HStack>
-													<Text color="dark.50" fontWeight="bold" fontSize="sm">
-														地址：
+												<VStack space={5}>
+													<Text color="dark.50" fontSize="md" fontWeight="bold">
+														{' '}
+														{item.name}{' '}
 													</Text>
-													<Text color="dark.50" fontWeight="bold" fontSize="sm">
-														{item.displayAddress}
-													</Text>
-												</HStack>
-												{item?.paymentMethods ? (
 													<HStack>
-														<Text color="dark.50" fontSize="lg" fontWeight="bold">
-															付款方式：
+														<Text color="dark.50" fontWeight="bold" fontSize="sm">
+															地址：
 														</Text>
-														<Text color="amber.400" fontSize="lg" fontWeight="bold">
-															{[item?.paymentMethods].join()}
+														<Text
+															color="dark.50"
+															fontWeight="bold"
+															fontSize="sm"
+															style={{ flex: 1, flexWrap: 'wrap' }}
+														>
+															{item.displayAddress}
 														</Text>
 													</HStack>
-												) : (
-													<HStack>
-														<Text color="dark.50" fontSize="sm" fontWeight="bold">
-															付款方式：
-														</Text>
-														<Text color="red.400" fontSize="sm" fontWeight="bold">
-															資料沒有提供
-														</Text>
-													</HStack>
-												)}
-											</VStack>
-										</HStack>
+													{item?.paymentMethods ? (
+														<HStack>
+															<Text color="dark.50" fontSize="lg" fontWeight="bold">
+																付款方式：
+															</Text>
+															<Text color="amber.400" fontSize="lg" fontWeight="bold">
+																{[item?.paymentMethods].join()}
+															</Text>
+														</HStack>
+													) : (
+														<HStack>
+															<Text color="dark.50" fontSize="sm" fontWeight="bold">
+																付款方式：
+															</Text>
+															<Text color="red.400" fontSize="sm" fontWeight="bold">
+																資料沒有提供
+															</Text>
+														</HStack>
+													)}
+												</VStack>
+											</HStack>
 
-										<HStack>
-											<CarParkVacancyAPI Id={item.park_Id} />
-										</HStack>
-									</VStack>
+											<HStack>
+												<CarParkVacancyAPI Id={item.park_Id} />
+											</HStack>
+										</VStack>
+									</Animated.ScrollView>
 								</View>
 							</>
 						);
