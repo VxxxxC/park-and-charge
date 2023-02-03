@@ -4,7 +4,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CarParkDistrict from './components/carParkDistrict';
-import CarParkInfoAPI from './components/carParkInfoAPI';
 import CarParkVacancyAPI from './components/carParkVacancyAPI';
 import Spacer from './components/spacer';
 import { Provider } from 'react-redux';
@@ -20,7 +19,7 @@ function CarPark() {
 	return (
 		<Box bg="dark.50">
 			<CarParkDistrict />
-			<CarParkInfoAPI />
+      <CarParkMap/>
 			{selector.loading == 'is pending' ? <LoadingIcon /> : null}
 		</Box>
 	);
