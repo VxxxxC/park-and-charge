@@ -5,7 +5,7 @@ import { useAppSelector } from './redux/hooks';
 import { useAppDispatch } from './redux/hooks';
 import { StyleSheet, Animated, Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import React, { useCallback, useEffect, useReducer } from 'react';
+import React, { useRef, useCallback, useEffect, useReducer } from 'react';
 import axios from 'axios';
 
 function CarParkMap() {
@@ -31,14 +31,14 @@ function CarParkMap() {
 			outputRange: [0.35, 1, 0.35],
 			extrapolate: 'clamp',
 		});
-		console.log({ scale, opacity });
+	//	console.log({ scale, opacity });
 		return { scale, opacity };
 	});
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	const fetchData = useCallback(
 		(id: string) => {
-			console.log('ID received : ', id);
+		//	console.log('ID received : ', id);
 			const config = {
 				headers: {
 					'Content-Type': 'application/json',
@@ -52,14 +52,42 @@ function CarParkMap() {
 				const privateCarInfo = info.privateCar;
 				const privateCarVacancy = privateCarInfo[0];
 
-				console.log(
+			/*	console.log(
 					`This is vacancy number for drop-pin : ${privateCarVacancy.vacancy.toString()}`
 				);
+      */
 				return privateCarVacancy.vacancy.toString();
 			});
 		},
 		[selector.districtData]
 	);
+
+  // detecting scrolling card , and animated view to zoom in
+  let mapRef:any;
+  useEffect(()=>{
+      let index = 0;
+      animation.addListener(({ value }) => {
+
+      console.log({value: value, cardWith: cardWidth})
+      console.log("data length : ",selector.districtData.length);
+
+      let aniIndex = Math.floor(value / cardWidth + 0.3); // animate 30% away from landing on the next item
+      console.log({index, aniIndex})
+
+
+          if (aniIndex <= 0) {
+        aniIndex = 0;
+      }
+        if (index !== aniIndex) {
+          index = aniIndex;
+      }
+          const { latitude, longitude }:any = selector.districtData[index];
+          mapRef.animateToRegion({...latitude, ...longitude, latitudeDelta:0.04,longitudeDelta:0.04},350);
+          console.log(selector.districtData[index]['name'])
+          console.log({latitude,longitude})
+    });
+  },[selector.districtData])
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	const styles = StyleSheet.create({
@@ -99,6 +127,7 @@ function CarParkMap() {
 		<>
 			<View style={styles.container}>
 				<MapView
+          ref={(ref) => {mapRef = ref}}
 					style={styles.map}
 					showsScale={true}
 					showsCompass={true}
