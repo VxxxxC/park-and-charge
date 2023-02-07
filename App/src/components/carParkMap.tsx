@@ -156,7 +156,6 @@ function CarParkMap() {
 							<Marker
 								key={index}
 								title={item.name}
-								description={`${fetchData(item.park_Id)}`}
 								coordinate={{ latitude: item.latitude, longitude: item.longitude }}
 							>
 								<Animated.View style={[styles.markerWrap, opacityStyle]}>
