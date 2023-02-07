@@ -2,7 +2,7 @@
   "expo": {
     "name": "Park-and-Charge",
     "slug": "Park-and-Charge",
-    "version": "1.0.2",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/appIcon.png",
     "splash": {
