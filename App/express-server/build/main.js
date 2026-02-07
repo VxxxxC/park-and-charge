@@ -8,6 +8,7 @@ const running_at_1 = __importDefault(require("running-at"));
 const cors_1 = __importDefault(require("cors"));
 const updateCarParkInfoAPI_1 = __importDefault(require("./updateCarParkInfoAPI"));
 const getCarkParkInfo_1 = __importDefault(require("./getCarkParkInfo"));
+const updateCarChargeInfoAPI_1 = __importDefault(require("./updateCarChargeInfoAPI"));
 const app = (0, express_1.default)();
 const PORT = 8050;
 app.use(express_1.default.json());
@@ -17,6 +18,7 @@ app.use((0, cors_1.default)());
 // }
 app.use('/updateCarParkInfo', updateCarParkInfoAPI_1.default);
 app.use('/getCarParkInfo', getCarkParkInfo_1.default);
+app.use('/updateCarChargeInfoAPI', updateCarChargeInfoAPI_1.default);
 app.get('/', (req, res) => {
     res.json('This is Park and Charge API by AWS EC2');
 });
