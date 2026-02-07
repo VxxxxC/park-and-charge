@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { CarParkInfo } from './types';
 
 const infoAPI = `${process.env.REACT_NATIVE_APP_EXPRESS_API}/getCarParkInfo`;
 const config = {
@@ -9,7 +10,7 @@ const config = {
 };
 
 interface districtState {
-	districtData: string[];
+	districtData: CarParkInfo[];
 	loading: 'is idle' | 'is pending' | 'is fulfilled' | 'is rejected';
 }
 

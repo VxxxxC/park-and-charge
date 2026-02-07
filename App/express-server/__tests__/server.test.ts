@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import request from 'supertest';
 
 describe('Express Server Setup', () => {
   let app: express.Application;
@@ -18,19 +19,15 @@ describe('Express Server Setup', () => {
     expect(app).toBeDefined();
   });
 
-  it('should have JSON middleware configured', () => {
-    // Verify the app has middleware stack
-    const stack = app._router?.stack;
-    expect(stack).toBeDefined();
-    expect(stack.length).toBeGreaterThan(0);
+  it('should respond with JSON at root endpoint', async () => {
+    const response = await request(app).get('/');
+    expect(response.status).toBe(200);
+    expect(response.body).toBe('This is Park and Charge API by AWS EC2');
   });
 
-  it('should have a root route handler', () => {
-    const routes = app._router?.stack.filter(
-      (layer: any) => layer.route && layer.route.path === '/'
-    );
-    expect(routes.length).toBe(1);
-    expect(routes[0].route.methods.get).toBe(true);
+  it('should include CORS headers', async () => {
+    const response = await request(app).get('/');
+    expect(response.headers['access-control-allow-origin']).toBe('*');
   });
 });
 
