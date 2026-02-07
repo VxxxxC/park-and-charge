@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { Box, View, ScrollView, Center } from 'native-base';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CarParkMap from './carParkMap';
+import CarParkMap from './components/carParkMap';
 import CarPark from './carPark';
 import CarCharge from './carCharge';
 import { FontAwesome5 } from '@expo/vector-icons';
