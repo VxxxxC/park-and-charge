@@ -5,7 +5,7 @@ import axios from 'axios';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useAppDispatch } from './redux/hooks';
 import { fetchDistrict } from './redux/districtReducer';
-import CarParkInfoAPI from './carParkInfoAPI';
+
 
 function CarParkDistrict() {
 	type itemType = {

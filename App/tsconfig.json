@@ -5,5 +5,12 @@
 		"strict": true,
 		"allowJs": true,
 		"module": "commonjs"
-	}
+	},
+	"exclude": [
+		"node_modules",
+		"express-server",
+		"dist",
+		"babel.config.js",
+		"metro.config.js"
+	]
 }

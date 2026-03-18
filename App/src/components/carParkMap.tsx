@@ -90,7 +90,7 @@ function CarParkMap() {
 				},
 				350
 			);
-			console.log(selector.districtData[index]['name']);
+			console.log(selector.districtData[index].name);
 			console.log({ latitude, longitude });
 		});
 	}, [selector.districtData]);
