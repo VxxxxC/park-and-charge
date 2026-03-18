@@ -29,28 +29,29 @@ describe('getMongodbData', () => {
 
   it('should return all data when district is "全部"', async () => {
     const result = await getMongodbData('全部');
-    expect(result.length).toBeGreaterThanOrEqual(3);
+    expect(result).toHaveLength(3);
+    expect(result).toEqual(mockResponse.data.res);
   });
 
   it('should filter by district field', async () => {
     const result = await getMongodbData('灣仔區');
-    const hasDistrict = result.some((item: any) => 
-      item.district === '灣仔區' || item.address?.dcDistrict === '灣仔區'
-    );
-    expect(hasDistrict).toBe(true);
+    expect(result).toHaveLength(1);
+    expect(result[0].district).toBe('灣仔區');
   });
 
   it('should filter by address.dcDistrict when no district field', async () => {
     const result = await getMongodbData('東區');
-    const hasDistrict = result.some((item: any) => 
-      item.address?.dcDistrict === '東區'
-    );
-    expect(hasDistrict).toBe(true);
+    expect(result).toHaveLength(1);
+    expect(result[0].address?.dcDistrict).toBe('東區');
   });
 
-  it('should call axios.post with the API endpoint', async () => {
+  it('should call axios.post with empty body and config as third argument', async () => {
     await getMongodbData('中西區');
-    expect(mockedAxios.post).toHaveBeenCalled();
+    expect(mockedAxios.post).toHaveBeenCalledWith(
+      expect.any(String),
+      {},
+      expect.objectContaining({ headers: { 'Content-Type': 'application/json' } })
+    );
   });
 
   it('should return empty array for non-matching district', async () => {

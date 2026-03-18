@@ -43,14 +43,8 @@ jest.mock('dotenv', () => ({
   config: jest.fn(),
 }));
 
-// Mock setInterval to prevent timer from running
-const originalSetInterval = global.setInterval;
-beforeAll(() => {
-  global.setInterval = jest.fn() as any;
-});
-afterAll(() => {
-  global.setInterval = originalSetInterval;
-});
+// Use fake timers to prevent setInterval from leaking
+jest.useFakeTimers();
 
 describe('updateCarParkInfoAPI Router', () => {
   it('should export a Router', async () => {

@@ -26,20 +26,25 @@ describe('mapReducer getMongodbData', () => {
     (mockedAxios.post as jest.Mock).mockResolvedValue(mockResponse);
   });
 
-  it('should call axios.post to fetch data', async () => {
+  it('should call axios.post with empty body and config as third argument', async () => {
     await getMapData();
-    expect(mockedAxios.post).toHaveBeenCalled();
+    expect(mockedAxios.post).toHaveBeenCalledWith(
+      expect.any(String),
+      {},
+      expect.objectContaining({ headers: { 'Content-Type': 'application/json' } })
+    );
   });
 
-  it('should return data wrapped in an array', async () => {
+  it('should return a flat CarParkInfo array', async () => {
     const result = await getMapData();
     expect(Array.isArray(result)).toBe(true);
-    expect(result.length).toBeGreaterThan(0);
+    expect(result).toEqual(mockResponse.data.res);
   });
 
-  it('should push the full response data into the list', async () => {
+  it('should return all items from the response', async () => {
     const result = await getMapData();
-    // The function pushes the entire data array as one element
-    expect(result[0]).toEqual(mockResponse.data.res);
+    expect(result).toHaveLength(2);
+    expect(result[0]).toHaveProperty('name', 'Park A');
+    expect(result[1]).toHaveProperty('name', 'Park B');
   });
 });

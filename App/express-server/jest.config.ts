@@ -5,7 +5,6 @@ const config: Config = {
   testEnvironment: 'node',
   roots: ['<rootDir>'],
   testMatch: ['**/__tests__/**/*.test.ts'],
-  forceExit: true,
 };
 
 export default config;

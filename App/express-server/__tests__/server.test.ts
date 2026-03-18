@@ -2,6 +2,22 @@ import express from 'express';
 import cors from 'cors';
 import request from 'supertest';
 
+// Mock dotenv, mongodb, and axios to prevent real connections when importing routers
+jest.mock('dotenv', () => ({ config: jest.fn() }));
+jest.mock('mongodb', () => ({
+  MongoClient: jest.fn().mockImplementation(() => ({
+    db: jest.fn(),
+    close: jest.fn(),
+  })),
+}));
+jest.mock('axios', () => ({
+  __esModule: true,
+  default: { get: jest.fn(), post: jest.fn() },
+}));
+
+// Use fake timers to prevent setInterval in updateCarParkInfoAPI from leaking
+jest.useFakeTimers();
+
 describe('Express Server Setup', () => {
   let app: express.Application;
 

@@ -53,22 +53,20 @@ const districtSlice = createSlice({
 	},
 });
 
-export async function getMongodbData(districtName: string) {
-	const response: any = await axios.post(infoAPI, config);
-	type dataType = typeof response.data.res;
-	const data: dataType = response.data.res;
-
-	let districtList: dataType[] = [];
+export async function getMongodbData(districtName: string): Promise<CarParkInfo[]> {
+	const response = await axios.post(infoAPI, {}, config);
+	const data: CarParkInfo[] = response.data.res;
 
 	if (districtName == '全部') {
-		data.map((item: dataType) => districtList.push(item));
+		return data;
 	}
-	data.map((item: dataType) => {
-		if (Object.hasOwn(item, 'address') && item.address.dcDistrict == districtName) {
-			return districtList.push(item);
-		}
-		if (Object.hasOwn(item, 'district') && item.district == districtName) {
-			return districtList.push(item);
+
+	const districtList: CarParkInfo[] = [];
+	data.forEach((item: CarParkInfo) => {
+		if (item.address && item.address.dcDistrict == districtName) {
+			districtList.push(item);
+		} else if (item.district && item.district == districtName) {
+			districtList.push(item);
 		}
 	});
 	return districtList;
