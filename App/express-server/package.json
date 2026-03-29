@@ -36,6 +36,7 @@
     "running-at": "^0.3.22"
   },
   "overrides": {
-    "fast-xml-parser": "^5.5.7"
+    "fast-xml-parser": "^5.5.7",
+    "handlebars": "^4.7.9"
   }
 }
